@@ -1,0 +1,26 @@
+ext {
+    app = [
+            compileSdkVersion: 28,
+            minSdkVersion    : 15,
+            targetSdkVersion : 28,
+            versionCode      : 1,
+            versionName      : "1.0"
+    ]
+
+    // 公共配置
+    versions = [
+            appcompat   : "1.1.0",
+            recyclerview: "1.1.0-rc01",
+            imageloader : "1.1.0",
+            quickadapter : "1.1.0",
+            constraintlayout : "1.1.3",
+    ]
+    // 公共配置
+    depsLibs = [
+            appcompat: "androidx.appcompat:appcompat:${versions.appcompat}",
+            recyclerview: "androidx.recyclerview:recyclerview:${versions.recyclerview}",
+            imageloader: "com.github.wenkency:imageloader:${versions.imageloader}",
+            quickadapter: "com.github.wenkency:quickadapter:${versions.quickadapter}",
+            constraintlayout: "androidx.constraintlayout:constraintlayout:${versions.constraintlayout}",
+    ]
+}

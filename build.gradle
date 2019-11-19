@@ -1,0 +1,29 @@
+// 导入配置文件
+apply from: 'config.gradle'
+
+buildscript {
+    repositories {
+        maven { url 'https://jitpack.io' }
+        google()
+        jcenter()
+
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.5.2'
+        // 代码发布到远程仓库 https://jitpack.io/
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+    }
+}
+
+allprojects {
+    repositories {
+        maven { url 'https://jitpack.io' }
+        google()
+        jcenter()
+
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

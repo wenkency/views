@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <cn.carhouse.views.banner.BannerViewPager
+        android:id="@+id/m_banner_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <RelativeLayout
+        android:id="@+id/m_banner_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:paddingLeft="8dp"
+        android:paddingTop="5dp"
+        android:paddingRight="8dp"
+        android:paddingBottom="5dp">
+        <!--描述-->
+        <TextView
+            android:id="@+id/m_banner_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:maxLines="1"
+            android:text=""
+            android:textColor="@android:color/white"
+            android:textSize="12dp"
+            android:visibility="gone" />
+        <!--点-->
+        <LinearLayout
+            android:id="@+id/m_banner_points"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="right"
+            android:orientation="horizontal" />
+
+        <!--  默认隐藏 指针容器  商品详情  圆形指示器-->
+        <LinearLayout
+            android:id="@+id/m_banner_points2"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/banner_circle_black"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/id_tv_size"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1/"
+                android:textColor="@android:color/white"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/id_tv_size2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:text="1"
+                android:textColor="@android:color/white"
+                android:textSize="12dp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

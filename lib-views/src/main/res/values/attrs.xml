@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="XGridLayout">
+        <!--一列有多少个Item-->
+        <attr name="gridSpan" format="integer" />
+        <!--水平间距-->
+        <attr name="gridHorizontalSpace" format="dimension" />
+        <!--垂直间距-->
+        <attr name="gridVerticalSpace" format="dimension" />
+        <!--最大子View的个数-->
+        <attr name="gridMaxItem" format="integer" />
+        <!--条目的宽高是否一样-->
+        <attr name="gridIsSquare" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="XLineLayout">
+        <!--两个View之间的间距 ：值越小就越近，越大就越远-->
+        <attr name="lineViewMarginRate" format="float" />
+        <!--View的层次关系，true:前面的在上，false:后面的在上-->
+        <attr name="lineIsReverse" format="boolean" />
+    </declare-styleable>
+
+    <!--侧划删除-->
+    <declare-styleable name="SwipeMenuLayout">
+        <attr name="swipeEnable" format="boolean" />
+        <attr name="ios" format="boolean" />
+        <attr name="leftSwipe" format="boolean" />
+    </declare-styleable>
+
+    <!--宽度平分-->
+    <declare-styleable name="WidthEqualsLayout">
+        <attr name="width_counts" format="integer" />
+    </declare-styleable>
+
+    <!--物流进度-->
+    <declare-styleable name="StepProgressLayout">
+        <!--第一个条目的图片、大小-->
+        <attr name="step_first_image" format="reference" />
+        <attr name="step_first_image_size" format="dimension" />
+        <!--第一条Top线的高度-->
+        <attr name="step_first_line_height" format="dimension" />
+        <!--正常条目的图片、大小-->
+        <attr name="step_normal_image" format="reference" />
+        <attr name="step_normal_image_size" format="dimension" />
+        <!--正常条目Top线的高度-->
+        <attr name="step_normal_line_height" format="dimension" />
+        <!--线的大小、线的颜色-->
+        <attr name="step_line_size" format="dimension" />
+        <attr name="step_line_color" format="color|reference" />
+        <attr name="step_style" format="enum">
+            <enum name="first" value="0" />
+            <enum name="normal" value="1" />
+            <enum name="end" value="2" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="BannerView">
+        <attr name="point_style" format="enum">
+            <enum name="circle" value="0" />
+            <enum name="point" value="1" />
+        </attr>
+        <!--点的宽高-->
+        <attr name="point_width" format="dimension" />
+        <attr name="point_height" format="dimension" />
+        <!--点的颜色选中和未选中-->
+        <attr name="point_color_selected" format="color|reference" />
+        <attr name="point_color_unselected" format="color|reference" />
+        <!--点的间距-->
+        <attr name="point_distance" format="dimension" />
+        <!--点的圆角-->
+        <attr name="point_radius" format="dimension" />
+        <!--点的位置-->
+        <attr name="point_gravity" format="enum">
+            <enum name="left" value="-1" />
+            <enum name="center" value="0" />
+            <enum name="right" value="1" />
+        </attr>
+        <!--底部背景颜色-->
+        <attr name="banner_bottom_bg" format="color|reference" />
+        <!--图片的宽高比-->
+        <attr name="radio_width" format="float" />
+        <attr name="radio_height" format="float" />
+    </declare-styleable>
+</resources>
