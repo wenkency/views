@@ -1,7 +1,6 @@
 package cn.carhouse.views.tab;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -76,11 +75,11 @@ public abstract class XTabCommAdapter<T, V extends View> extends XTabAdapter<V> 
 
     }
 
-    @Override
-    public View getTabBottomLineView(ViewGroup parent) {
-        View view = new View(parent.getContext());
-        view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 20));
-        view.setBackgroundColor(Color.RED);
-        return view;
-    }
+//    @Override
+//    public View getTabBottomLineView(ViewGroup parent) {
+//        View view = new View(parent.getContext());
+//        view.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 20));
+//        view.setBackgroundColor(Color.RED);
+//        return view;
+//    }
 }
