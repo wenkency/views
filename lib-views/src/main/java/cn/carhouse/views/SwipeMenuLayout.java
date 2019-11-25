@@ -83,7 +83,6 @@ public class SwipeMenuLayout extends ViewGroup {
     private static boolean isTouching;
 
     private VelocityTracker mVelocityTracker;//滑动速度变量
-    private android.util.Log LogUtils;
 
     /**
      * 右滑删除功能的开关,默认开
