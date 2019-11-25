@@ -13,21 +13,21 @@ import java.util.List;
  * 流式布局适配器的封装，可以快速使用
  */
 
-public abstract class XAdapter<T> extends XBaseAdapter {
+public abstract class XCommAdapter<T> extends XBaseAdapter {
 
     protected int mLayoutId;
     protected List<T> mData;
     protected Context mContext;
     protected LayoutInflater mInflater;
 
-    public XAdapter(Context context, List<T> data, int layoutId) {
+    public XCommAdapter(Context context, List<T> data, int layoutId) {
         this.mContext = context;
         this.mData = data == null ? new ArrayList<T>() : new ArrayList<T>(data);
         this.mLayoutId = layoutId;
         mInflater = LayoutInflater.from(mContext);
     }
 
-    public XAdapter(Context context, int layoutId) {
+    public XCommAdapter(Context context, int layoutId) {
         this(context, null, layoutId);
     }
 

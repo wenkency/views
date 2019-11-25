@@ -32,7 +32,7 @@ public class XViewHolder {
         this.itemView = itemView;
         mViews = new SparseArray<>();
         this.mLayoutId = layoutId;
-
+        itemView.setTag(this);
     }
 
     public int getLayoutId() {

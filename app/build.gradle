@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+def versions = rootProject.ext.versions
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -21,4 +21,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation project(path: ':lib-views')
+    implementation "com.github.wenkency:quickadapter:${versions.quickadapter}"
+    implementation "androidx.recyclerview:recyclerview:${versions.recyclerview}"
 }

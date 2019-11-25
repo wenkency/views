@@ -4,6 +4,7 @@ import java.util.List;
 
 import cn.carhouse.adapter.XQuickPagerAdapter;
 
+
 /**
  * BannerView的Adapter
  */

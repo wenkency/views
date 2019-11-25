@@ -99,30 +99,32 @@ public class XGridLayout extends XViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        int childCount = getChildCount();
-        // 计算一下最大的条目数量
-        childCount = Math.min(childCount, mMaxItem);
-        if (childCount <= 0) {
-            return;
-        }
-        int cl = getPaddingLeft();
-        int ct = getPaddingTop();
-        for (int i = 0; i < childCount; i++) {
-            View child = getChildAt(i);
-            if (child.getVisibility() == GONE) {
-                continue;
+        if (changed){
+            int childCount = getChildCount();
+            // 计算一下最大的条目数量
+            childCount = Math.min(childCount, mMaxItem);
+            if (childCount <= 0) {
+                return;
             }
-            int width = child.getMeasuredWidth();
-            int height = child.getMeasuredHeight();
-            child.layout(cl, ct, cl + width, ct + height);
-            // 累加宽度
-            cl += width + mHorizontalSpace;
-            // 如果是换行
-            if ((i + 1) % mSpan == 0) {
-                // 重置左边的位置
-                cl = getPaddingLeft();
-                // 叠加高度
-                ct += height + mVerticalSpace;
+            int cl = getPaddingLeft();
+            int ct = getPaddingTop();
+            for (int i = 0; i < childCount; i++) {
+                View child = getChildAt(i);
+                if (child.getVisibility() == GONE) {
+                    continue;
+                }
+                int width = child.getMeasuredWidth();
+                int height = child.getMeasuredHeight();
+                child.layout(cl, ct, cl + width, ct + height);
+                // 累加宽度
+                cl += width + mHorizontalSpace;
+                // 如果是换行
+                if ((i + 1) % mSpan == 0) {
+                    // 重置左边的位置
+                    cl = getPaddingLeft();
+                    // 叠加高度
+                    ct += height + mVerticalSpace;
+                }
             }
         }
     }

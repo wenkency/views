@@ -82,4 +82,11 @@
         <attr name="radio_width" format="float" />
         <attr name="radio_height" format="float" />
     </declare-styleable>
+
+    <declare-styleable name="XTabLayout">
+        <!-- TAB一屏幕显示的个数-->
+        <attr name="tabCount" format="integer" />
+        <attr name="tabIsScroll" format="boolean" />
+        <attr name="tabIsFullScreen" format="boolean" />
+    </declare-styleable>
 </resources>
