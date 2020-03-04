@@ -11,8 +11,8 @@ ext {
     versions = [
             appcompat   : "1.1.0",
             recyclerview: "1.1.0-rc01",
-            imageloader : "1.1.0",
-            quickadapter : "1.3.0",
+            imageloader : "2.2.0",
+            quickadapter : "1.4.0",
             constraintlayout : "1.1.3",
     ]
     // 公共配置
