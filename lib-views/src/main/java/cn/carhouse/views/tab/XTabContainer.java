@@ -1,13 +1,12 @@
 package cn.carhouse.views.tab;
 
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.SparseArray;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
@@ -21,14 +20,27 @@ import androidx.annotation.Nullable;
  * @author 刘付文
  */
 class XTabContainer extends FrameLayout {
-    private LinearLayout mLLTabContainer;
-    private View mLineView;
+    private final int mScreenWidth;
     /**
-     * 一个条目的宽度
+     * 1. 每个TAB固定宽
      */
-    private int mItemWidth;
-    private LayoutParams mTabLineParams;
-    private int mInitLeftMargin;
+    private int mItemWidth = 0;
+    /**
+     * 2. 每个Tab平分
+     */
+    private boolean mTabEqual = false;
+    /**
+     * 3. 一屏幕显示的TAB个数
+     */
+    private int mTabCount = 0;
+    private LinearLayout mLLTabContainer;
+    // 记录每个条目的宽度
+    private SparseArray<Integer> mItemsWidth;
+    private View mLineView;
+    private LayoutParams mLineLayoutParams;
+    private int mLineWidth;
+    private int mLineHeight;
+    private int mTabLineBottomMargin = 0;
 
     public XTabContainer(@NonNull Context context) {
         this(context, null);
@@ -40,32 +52,44 @@ class XTabContainer extends FrameLayout {
 
     public XTabContainer(@NonNull Context context, @Nullable AttributeSet attrs, @AttrRes int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+
         // 添加容器
         mLLTabContainer = new LinearLayout(context);
         mLLTabContainer.setOrientation(LinearLayout.HORIZONTAL);
         addView(mLLTabContainer);
+        mItemsWidth = new SparseArray<>();
+        mScreenWidth = context.getResources().getDisplayMetrics().widthPixels;
     }
 
-    public LinearLayout getLLTabContainer() {
-        return mLLTabContainer;
-    }
-
-    /**
-     * 添加ItemView
-     *
-     * @param itemView
-     */
-    public void addItemView(View itemView) {
-        mLLTabContainer.addView(itemView);
-    }
 
     /**
      * 添加ItemView
-     *
-     * @param itemView
      */
-    public void addItemView(View itemView, LinearLayout.LayoutParams layoutParams) {
-        mLLTabContainer.addView(itemView, layoutParams);
+    public void addItemView(int position, View itemView) {
+        // 在这里计算Item的宽度
+        mLLTabContainer.addView(itemView, position, getItemLayoutParams());
+    }
+
+    /**
+     * 计算每个条目的宽度
+     *
+     * @return
+     */
+    private LinearLayout.LayoutParams getItemLayoutParams() {
+        // 1. 如果指定了条目的宽度
+        if (mItemWidth > 0) {
+            return new LinearLayout.LayoutParams(mItemWidth, LayoutParams.MATCH_PARENT);
+        }
+        if (mTabEqual) {
+            return new LinearLayout.LayoutParams(0, LayoutParams.MATCH_PARENT, 1.0f);
+        }
+        // 2. 如果指定了一屏条目个数
+        if (mTabCount > 0) {
+            XTabLayout parent = (XTabLayout) getParent();
+            int width = mScreenWidth - parent.getPaddingLeft() - parent.getPaddingRight();
+            return new LinearLayout.LayoutParams(width / mTabCount, LayoutParams.MATCH_PARENT);
+        }
+        return new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.MATCH_PARENT);
     }
 
     /**
@@ -85,90 +109,86 @@ class XTabContainer extends FrameLayout {
         mLLTabContainer.removeAllViews();
     }
 
-    /**
-     * 根据位置获取ItemView
-     *
-     * @param position
-     * @return
-     */
-    public View getItemAt(int position) {
-        return mLLTabContainer.getChildAt(position);
+    public void setTabCount(int tabCount) {
+        this.mTabCount = tabCount;
     }
 
-    public void addTabBottomLineView(View lineView, int itemWidth) {
-        this.mLineView = lineView;
+    public void setItemWidth(int itemWidth) {
         this.mItemWidth = itemWidth;
-        if (mLineView == null) {
-            return;
-        }
-        // 添加线
-        addView(mLineView);
-        // 设置线的的位置和宽度
-        mTabLineParams = (LayoutParams) mLineView.getLayoutParams();
-        mTabLineParams.gravity = Gravity.BOTTOM;
-
-        int tabWidth = mTabLineParams.width;
-        // 没有设置宽度
-        if (mTabLineParams.width == ViewGroup.LayoutParams.WRAP_CONTENT
-                || mTabLineParams.width == ViewGroup.LayoutParams.MATCH_PARENT) {
-            tabWidth = mItemWidth;
-        }
-        // 大于Item的宽度
-        if (tabWidth > mItemWidth) {
-            tabWidth = mItemWidth;
-        }
-
-        mTabLineParams.width = tabWidth;
-
-        // 确保在最中间
-        mInitLeftMargin = (mItemWidth - tabWidth) / 2;
-        mTabLineParams.leftMargin = mInitLeftMargin;
     }
 
-    private boolean isPositionOffset;
+    public void setTabEqual(boolean tabEqual) {
+        this.mTabEqual = tabEqual;
+    }
+
+    public void addLineView(View lineView) {
+        if (lineView == null) {
+            return;
+        }
+        mLineView = lineView;
+        // 添加线
+        addView(lineView, getLineLayoutParams());
+        // 设置线的偏移
+        updateLine(0, 0);
+    }
+
+    private LayoutParams getLineLayoutParams() {
+        ViewGroup.LayoutParams layoutParams = mLineView.getLayoutParams();
+        // 用户设置了宽高
+        if (mLineWidth > 0 && mLineHeight > 0) {
+            mLineLayoutParams = new LayoutParams(mLineWidth, mLineHeight);
+        } else if (layoutParams != null) {
+            // 设置线的LayoutParams
+            mLineLayoutParams = new LayoutParams(layoutParams.width, layoutParams.height);
+        } else {
+            // 默认线的宽高
+            mLineLayoutParams = new LayoutParams(getItemWidth(0), dip2px(2));
+        }
+        mLineLayoutParams.gravity = Gravity.BOTTOM;
+        mLineLayoutParams.bottomMargin = mTabLineBottomMargin;
+        return mLineLayoutParams;
+    }
 
     /**
-     * 滚动底部的指示器-->LeiftMargin来设置
+     * 更新线的位置
      */
-    public void scrollBottomLine(int position, float positionOffset) {
-        isPositionOffset = true;
+    public void updateLine(int position, int offset) {
         if (mLineView == null) {
             return;
         }
-        int leftMargin = (int) ((position + positionOffset) * mItemWidth + mInitLeftMargin);
-        int maxMargin = (position + 1) * mItemWidth + mInitLeftMargin;
-        mTabLineParams.leftMargin = Math.min(leftMargin, maxMargin);
-        mLineView.setLayoutParams(mTabLineParams);
+        View child = mLLTabContainer.getChildAt(position);
+        if (child == null) {
+            return;
+        }
+        int measuredWidth = getItemWidth(position);
+        int leftMargin = child.getLeft() + offset + (measuredWidth - mLineLayoutParams.width) / 2;
+        mLineLayoutParams.leftMargin = leftMargin;
+        mLineView.setLayoutParams(mLineLayoutParams);
     }
 
-    public void scrollBottomLine(int position) {
-        if (isPositionOffset) {
-            isPositionOffset = false;
-            return;
+    public int getItemWidth(int position) {
+        View child = mLLTabContainer.getChildAt(position);
+        int measuredWidth = child.getMeasuredWidth();
+        if (measuredWidth <= 0) {
+            child.measure(0, 0);
+            measuredWidth = child.getMeasuredWidth();
         }
-        if (mLineView == null) {
-            return;
-        }
-        // 总共要移动的距离
-        int totalMargin = position * mItemWidth + mInitLeftMargin;
-        // 当前的距离
-        int currentMargin = mTabLineParams.leftMargin;
-        // 移动的距离
-        int distance = totalMargin - currentMargin;
+        return measuredWidth;
+    }
 
-        // 用动画来执行移动
-        ValueAnimator animator = ObjectAnimator.ofInt(currentMargin, totalMargin);
-        animator.setDuration((long) Math.abs(distance * 0.2f));
-        animator.setInterpolator(new DecelerateInterpolator());
-        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-            @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                int value = (int) animation.getAnimatedValue();
-                mTabLineParams.leftMargin = value;
-                mLineView.setLayoutParams(mTabLineParams);
-            }
-        });
-        animator.start();
+    public void setLineWidth(int lineWidth) {
+        this.mLineWidth = lineWidth;
+    }
 
+    public void setLineHeight(int lineHeight) {
+        this.mLineHeight = lineHeight;
+    }
+
+    private int dip2px(int dip) {
+        return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, getResources().getDisplayMetrics()) + 0.5);
+    }
+
+    public void setTabLineBottomMargin(int tabLineBottomMargin) {
+        this.mTabLineBottomMargin = tabLineBottomMargin;
     }
 }

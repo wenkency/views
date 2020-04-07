@@ -113,4 +113,37 @@ public abstract class XCommAdapter<T> extends XBaseAdapter {
     public boolean isLast(int position) {
         return mData != null && mData.size() - 1 == position;
     }
+
+
+    @Override
+    public final void onTabReset(View view, int position) {
+        if (view.getTag() == null) {
+            return;
+        }
+        XViewHolder holder = (XViewHolder) view.getTag();
+        convertTabReset(holder, mData.get(position), position);
+    }
+
+    @Override
+    public final void onTabSelected(View view, int position) {
+        if (view.getTag() == null) {
+            return;
+        }
+        XViewHolder holder = (XViewHolder) view.getTag();
+        convertTabSelected(holder, mData.get(position), position);
+    }
+
+    /**
+     * 复写这个方法就好
+     */
+    public void convertTabSelected(XViewHolder holder, T item, int position) {
+
+    }
+
+    /**
+     * 复写这个方法就好
+     */
+    public void convertTabReset(XViewHolder holder, T item, int position) {
+
+    }
 }

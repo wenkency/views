@@ -84,9 +84,18 @@
     </declare-styleable>
 
     <declare-styleable name="XTabLayout">
-        <!-- TAB一屏幕显示的个数-->
+        <!--1. 优先用每个Item的宽度-->
+        <attr name="tabWidth" format="dimension" />
+        <!--2. 这个是第二个优先用在每个Item的宽度-->
+        <attr name="tabEqual" format="boolean" />
+        <!--3. TAB一屏幕显示的个数：这个是第三个优先用在每个Item的宽度-->
         <attr name="tabCount" format="integer" />
+        <!-- 4. 和ViewPager滚动要不要动画-->
         <attr name="tabIsScroll" format="boolean" />
-        <attr name="tabIsFullScreen" format="boolean" />
+        <!-- 5. 线的宽高-->
+        <attr name="tabLineWidth" format="dimension" />
+        <attr name="tabLineHeight" format="dimension" />
+        <!-- 6. 线距离下面的Margin-->
+        <attr name="tabLineBottomMargin" format="dimension" />
     </declare-styleable>
 </resources>

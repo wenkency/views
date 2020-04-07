@@ -8,11 +8,11 @@
     tools:context=".MainActivity">
 
     <cn.carhouse.views.tab.XTabLayout
-        app:tabCount="4"
-        android:background="#45124545"
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="80dp" />
+        android:layout_height="80dp"
+        android:background="#45124545"
+        app:tabCount="4" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"

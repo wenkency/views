@@ -9,7 +9,7 @@ import android.view.ViewGroup;
  * 适配器
  */
 
-public abstract class XBaseAdapter {
+public abstract class XBaseAdapter implements IXTabAdapter<View> {
     private DataSetObservable mObservable = new DataSetObservable();
 
     /**
@@ -51,4 +51,37 @@ public abstract class XBaseAdapter {
         mObservable.notifyChanged();
     }
 
+
+    // =========XTabLayout专用=======================================================
+
+    /**
+     * XTabLayout专用
+     *
+     * @param view
+     * @param position
+     */
+    @Override
+    public  void onTabReset(View view, int position) {
+
+    }
+
+    /**
+     * XTabLayout专用
+     *
+     * @param view
+     * @param position
+     */
+    @Override
+    public  void onTabSelected(View view, int position) {
+
+    }
+
+    /**
+     * XTabLayout专用
+     */
+    @Override
+    public View getTabBottomLineView(ViewGroup parent) {
+        return null;
+    }
+    // =========XTabLayout专用=======================================================
 }
