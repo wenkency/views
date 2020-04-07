@@ -154,12 +154,12 @@ public class XTabLayout extends HorizontalScrollView implements ViewPager.OnPage
         }
 
         // 默认选中第一个位置
-       this.post(new Runnable() {
-           @Override
-           public void run() {
-               onPageSelected(0);
-           }
-       });
+        this.post(new Runnable() {
+            @Override
+            public void run() {
+                onPageSelected(0);
+            }
+        });
     }
 
 
@@ -173,9 +173,11 @@ public class XTabLayout extends HorizontalScrollView implements ViewPager.OnPage
 
     @Override
     public void onPageSelected(int position) {
+
         if (mPosition == position) {
             return;
         }
+        isScroll = false;
         // 1. 重置
         if (mPosition >= 0) {
             mAdapter.onTabReset(mTabContainer.getItemView(mPosition), mPosition);
