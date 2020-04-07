@@ -132,7 +132,7 @@ public class XGridLayout extends XViewGroup {
     /**
      * 重新添加布局
      */
-    protected void resetLayout() {
+    protected void notifyDataSetChanged() {
         if (mAdapter == null) {
             return;
         }
@@ -152,7 +152,7 @@ public class XGridLayout extends XViewGroup {
      */
     public void setMaxItem(int maxItem) {
         mMaxItem = maxItem;
-        resetLayout();
+        notifyDataSetChanged();
     }
 
     /**

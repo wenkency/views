@@ -196,19 +196,19 @@ public class XFlowLayout extends ViewGroup {
         mObserver = new DataSetObserver() {
             @Override
             public void onChanged() {
-                resetLayout();
+                notifyDataSetChanged();
             }
         };
         // 注册监听
         registerAdapter();
         // 添加布局
-        resetLayout();
+        notifyDataSetChanged();
     }
 
     /**
      * 重新添加布局
      */
-    private void resetLayout() {
+    private void notifyDataSetChanged() {
         if (mAdapter == null) {
             return;
         }
@@ -275,7 +275,7 @@ public class XFlowLayout extends ViewGroup {
 
     public void change() {
         this.isShowOneLine = !this.isShowOneLine;
-        resetLayout();
+        notifyDataSetChanged();
     }
 
     public XBaseAdapter getAdapter() {

@@ -63,14 +63,14 @@ public abstract class XViewGroup extends ViewGroup {
         mObserver = new DataSetObserver() {
             @Override
             public void onChanged() {
-                resetLayout();
+                notifyDataSetChanged();
             }
         };
 
         // 注册监听
         registerAdapter();
 
-        resetLayout();
+        notifyDataSetChanged();
 
     }
 
@@ -105,7 +105,7 @@ public abstract class XViewGroup extends ViewGroup {
     /**
      * 重新添加布局
      */
-    protected void resetLayout() {
+    protected void notifyDataSetChanged() {
         if (mAdapter == null) {
             return;
         }
