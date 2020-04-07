@@ -43,6 +43,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void convert(XViewHolder holder, String item, int position) {
                 holder.setText(R.id.tv, "Tab" + position);
+                String url = "https://img.car-house.cn/Upload/activity/20200226/TZ5izRtnAzWGHSYKWeBBx6yhPFR62aX2.png";
+                if (position % 3 == 1) {
+                    url = "https://img.car-house.cn/Upload/activity/20200219/EEAmKbASEh3T3ECXFwT8D2e8m56BGhBe.jpg";
+                }
+                if (position % 3 == 2) {
+                    url = "https://img.car-house.cn/Upload/activity/20200304/sKFHyzZwTPBMzbjGyFTzMKsyYQEAZF6h.jpg";
+                }
+                holder.displayImage(R.id.iv_icon, url);
             }
 
             @Override

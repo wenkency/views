@@ -10,7 +10,7 @@ import java.util.List;
 
 
 /**
- * 流式布局适配器的封装，可以快速使用
+ * 自定义View公共适配器的封装，可以快速使用
  */
 
 public abstract class XCommAdapter<T> extends XBaseAdapter {
