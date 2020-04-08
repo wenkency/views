@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
         XTabLayout tabLayout = findViewById(R.id.tab_layout);
         ViewPager viewPager = findViewById(R.id.view_pager);
         final List<String> data = new ArrayList<>();
-        for (int i = 0; i < 6; i++) {
+        for (int i = 0; i < 5; i++) {
             data.add("");
         }
         viewPager.setAdapter(new XQuickPagerAdapter<String>(data, R.layout.item_view_pager, false) {
@@ -73,6 +73,9 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setLineWidth(100);
         tabLayout.setLineHeight(20);
         tabLayout.setTabLineBottomMargin(10);
+        tabLayout.setTabEqual(true);
+
         tabLayout.setAdapter(tabCommAdapter, viewPager);
+
     }
 }

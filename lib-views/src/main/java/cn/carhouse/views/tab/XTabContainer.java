@@ -107,6 +107,10 @@ class XTabContainer extends FrameLayout {
      */
     public void removeAllItemViews() {
         mLLTabContainer.removeAllViews();
+        if (mLineView != null) {
+            removeView(mLineView);
+            mLineView = null;
+        }
     }
 
     public void setTabCount(int tabCount) {

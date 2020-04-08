@@ -131,6 +131,7 @@ public class XTabLayout extends HorizontalScrollView implements ViewPager.OnPage
         if (mAdapter == null) {
             return;
         }
+        mPosition = -1;
         int count = mAdapter.getCount();
         mTabContainer.removeAllItemViews();
         for (int i = 0; i < count; i++) {
