@@ -30,6 +30,7 @@ public class XTabLayout extends HorizontalScrollView implements ViewPager.OnPage
     private DataSetObserver mObserver;
     private boolean isRegister = false;
     private int mPosition = -1;
+    private OnItemClickListener mOnItemClickListener;
 
     public XTabLayout(Context context) {
         this(context, null);
@@ -75,6 +76,7 @@ public class XTabLayout extends HorizontalScrollView implements ViewPager.OnPage
         if (adapter == null) {
             throw new NullPointerException("XTabAdapter is null");
         }
+        mPosition = -1;
         mAdapter = adapter;
         mViewPager = viewPager;
         if (viewPager != null) {
@@ -137,6 +139,14 @@ public class XTabLayout extends HorizontalScrollView implements ViewPager.OnPage
             itemView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
+
+                    // 1. 回调点击
+                    if (mPosition != position) {
+                        if (mOnItemClickListener != null) {
+                            mOnItemClickListener.onItemClick(position, mTabContainer.getItemView(position));
+                        }
+                    }
+                    // 2. 固定回调，最后都会走onPageSelected
                     if (mViewPager != null) {
                         mViewPager.setCurrentItem(position, mTabScroll);
                     } else {
@@ -178,6 +188,7 @@ public class XTabLayout extends HorizontalScrollView implements ViewPager.OnPage
             return;
         }
         isScroll = false;
+
         // 1. 重置
         if (mPosition >= 0) {
             mAdapter.onTabReset(mTabContainer.getItemView(mPosition), mPosition);
@@ -187,6 +198,7 @@ public class XTabLayout extends HorizontalScrollView implements ViewPager.OnPage
         if (mPosition >= 0) {
             mAdapter.onTabSelected(mTabContainer.getItemView(mPosition), mPosition);
         }
+
         mTabContainer.updateLine(position, 0);
         smoothScrollTab(position);
     }
@@ -242,5 +254,11 @@ public class XTabLayout extends HorizontalScrollView implements ViewPager.OnPage
         mTabContainer.setTabLineBottomMargin(tabLineBottomMargin);
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(int position, View item);
+    }
 
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        mOnItemClickListener = onItemClickListener;
+    }
 }
