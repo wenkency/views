@@ -1,5 +1,6 @@
 # views
-开发常用自定义View的集合。
+开发常用自定义View的集合，常用流式布局（XFlowLayout）、九宫格（XGridLayout）、侧划删除（SwipeMenuLayout）
+物流进度（StepProgressLayout）、字母（LetterView）、指示器（XTabLayout）、轮播图（BannerView）、悬浮至顶（StickFrameLayout）。
 
 ### 引入
 
@@ -12,7 +13,7 @@ allprojects {
 	}
 
 
-implementation 'com.github.wenkency:views:1.2.0'
+implementation 'com.github.wenkency:views:1.3.0'
 
 ```
 
