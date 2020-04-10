@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                 if (position % 3 == 2) {
                     url = "https://img.car-house.cn/Upload/activity/20200304/sKFHyzZwTPBMzbjGyFTzMKsyYQEAZF6h.jpg";
                 }
-                holder.displayImage(R.id.iv_icon, url);
+                //holder.displayImage(R.id.iv_icon, url);
             }
 
             @Override

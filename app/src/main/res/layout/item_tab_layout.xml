@@ -3,19 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
-    <ImageView
-        android:scaleType="fitXY"
+    <cn.carhouse.views.AvatarView
+        app:avatarResId="@drawable/ic_launcher"
+        app:avatarStoreWidth="2dp"
         android:id="@+id/iv_icon"
-        android:layout_width="30dp"
-        android:layout_height="30dp" />
+        android:layout_width="40dp"
+        android:layout_height="40dp" />
 
     <TextView
         android:id="@+id/tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="1dp"
         android:text="TabLayout"
         android:textColor="@color/colorAccent"
         android:textSize="16dp" />

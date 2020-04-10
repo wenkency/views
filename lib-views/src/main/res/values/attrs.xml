@@ -98,4 +98,10 @@
         <!-- 6. 线距离下面的Margin-->
         <attr name="tabLineBottomMargin" format="dimension" />
     </declare-styleable>
+
+    <declare-styleable name="AvatarView">
+        <attr name="avatarResId" format="reference" />
+        <attr name="avatarStoreWidth" format="dimension" />
+        <attr name="avatarStoreColor" format="color|reference" />
+    </declare-styleable>
 </resources>
