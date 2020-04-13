@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                 if (position % 3 == 2) {
                     url = "https://img.car-house.cn/Upload/activity/20200304/sKFHyzZwTPBMzbjGyFTzMKsyYQEAZF6h.jpg";
                 }
-                //holder.displayImage(R.id.iv_icon, url);
+                holder.displayImage(R.id.iv_icon, url);
             }
 
             @Override
@@ -70,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
                 return view;
             }
         };
+        // 设置底部线宽高和距离底部高度
         tabLayout.setLineWidth(100);
         tabLayout.setLineHeight(20);
         tabLayout.setTabLineBottomMargin(10);

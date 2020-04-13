@@ -43,7 +43,10 @@ public class XFlowLayout extends ViewGroup {
      */
     private boolean isSquare;
 
-    private boolean isShowOneLine;
+    /**
+     * 显示最大行数
+     */
+    private int showMaxLine = Integer.MAX_VALUE;
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -80,10 +83,6 @@ public class XFlowLayout extends ViewGroup {
             int childHeight = child.getMeasuredHeight() + lp.topMargin + lp.bottomMargin;
             // 如果行宽 + 子View的宽度 > 测量的宽度
             if (lineWidth + childWidth > sizeWidth - getPaddingLeft() - getPaddingRight()) {
-                // 如果只显示一行
-                if (isShowOneLine && mViews.size() > 0) {
-                    continue;
-                }
                 // 换行
                 // 取最宽
                 width = Math.max(width, lineWidth);
@@ -108,14 +107,15 @@ public class XFlowLayout extends ViewGroup {
             }
             // 最后一个：取巧了
             if (i == count - 1) {
-                if (isShowOneLine && mViews.size() > 0) {
-                    continue;
-                }
                 // 取最宽
                 width = Math.max(width, lineWidth);
                 height += lineHeight;
                 mViews.add(lineViews);
                 mHeights.add(lineHeight);
+            }
+            // 判断行数
+            if (mHeights.size() >= showMaxLine) {
+                break;
             }
         }
         width += getPaddingLeft() + getPaddingRight();
@@ -133,16 +133,13 @@ public class XFlowLayout extends ViewGroup {
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
         if (changed) {
-            int lineNum = mHeights.size();
+
             // 子View的起始位置
             int left = getPaddingLeft();
             int top = getPaddingTop();
             // 控件的宽
             int measuredWidth = getMeasuredWidth();
-            if (isShowOneLine) {
-                lineNum = 1;
-            }
-            for (int i = 0; i < lineNum && mViews.size() > 0; i++) {
+            for (int i = 0; i < showMaxLine && i < mViews.size(); i++) {
                 List<View> views = mViews.get(i);
                 // 行宽
                 int lineMargin = 0;
@@ -266,16 +263,20 @@ public class XFlowLayout extends ViewGroup {
      * 默认不平分
      */
     public void setSquare(boolean square) {
-        isSquare = square;
+        if (this.isSquare != square) {
+            isSquare = square;
+            notifyDataSetChanged();
+        }
     }
 
-    public void setShowOneLine(boolean showOneLine) {
-        this.isShowOneLine = showOneLine;
-    }
-
-    public void change() {
-        this.isShowOneLine = !this.isShowOneLine;
-        notifyDataSetChanged();
+    /**
+     * 设置显示最大行数
+     */
+    public void setShowMaxLine(int showMaxLine) {
+        if (this.showMaxLine != showMaxLine) {
+            this.showMaxLine = showMaxLine;
+            notifyDataSetChanged();
+        }
     }
 
     public XBaseAdapter getAdapter() {
