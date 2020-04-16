@@ -15,6 +15,7 @@ import cn.carhouse.views.adapter.XBaseAdapter;
 
 /**
  * 可以单独或者和ViewPager结合使用的View
+ * 点击事件：1. 先默认操作 2.再回调监听
  */
 
 public class XTabLayout extends HorizontalScrollView implements ViewPager.OnPageChangeListener {
@@ -29,6 +30,8 @@ public class XTabLayout extends HorizontalScrollView implements ViewPager.OnPage
     private boolean isScroll;
     private DataSetObserver mObserver;
     private boolean isRegister = false;
+    // 默认选中配置
+    private int mInitPosition;
     private int mPosition = -1;
     private OnItemClickListener mOnItemClickListener;
 
@@ -67,16 +70,30 @@ public class XTabLayout extends HorizontalScrollView implements ViewPager.OnPage
     }
 
     public void setAdapter(XBaseAdapter adapter) {
-        setAdapter(adapter, null);
+        setAdapter(adapter, null, mInitPosition);
+    }
+
+    public void setAdapter(XBaseAdapter adapter, int position) {
+        setAdapter(adapter, null, position);
     }
 
     public void setAdapter(XBaseAdapter adapter, ViewPager viewPager) {
+        setAdapter(adapter, viewPager, mInitPosition);
+    }
+
+    /**
+     * @param adapter
+     * @param viewPager
+     * @param position  下标位置从0开始
+     */
+    public void setAdapter(XBaseAdapter adapter, ViewPager viewPager, int position) {
         // 移除监听
         unRegisterAdapter();
         if (adapter == null) {
             throw new NullPointerException("XTabAdapter is null");
         }
         mPosition = -1;
+        this.mInitPosition = position;
         mAdapter = adapter;
         mViewPager = viewPager;
         if (viewPager != null) {
@@ -140,18 +157,11 @@ public class XTabLayout extends HorizontalScrollView implements ViewPager.OnPage
             itemView.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
-                    // 1. 回调点击
-                    if (mPosition != position) {
-                        if (mOnItemClickListener != null) {
-                            mOnItemClickListener.onItemClick(position, mTabContainer.getItemView(position));
-                        }
-                    }
-                    // 2. 固定回调，最后都会走onPageSelected
-                    if (mViewPager != null) {
-                        mViewPager.setCurrentItem(position, mTabScroll);
-                    } else {
-                        onPageSelected(position);
+                    // 1. 默认操作
+                    currentSelected(position, mTabScroll);
+                    // 2. 点击回调
+                    if (mOnItemClickListener != null) {
+                        mOnItemClickListener.onItemClick(position, mTabContainer.getItemView(position));
                     }
                 }
             });
@@ -165,12 +175,7 @@ public class XTabLayout extends HorizontalScrollView implements ViewPager.OnPage
         }
 
         // 默认选中第一个位置
-        this.post(new Runnable() {
-            @Override
-            public void run() {
-                onPageSelected(0);
-            }
-        });
+        setCurrent(mInitPosition, false);
     }
 
 
@@ -179,6 +184,42 @@ public class XTabLayout extends HorizontalScrollView implements ViewPager.OnPage
         if (isScroll) {
             float totalScroll = (positionOffset) * mTabContainer.getItemWidth(position);
             mTabContainer.updateLine(position, (int) totalScroll);
+        }
+    }
+
+    /**
+     * 设置当前位置：没点击回调
+     *
+     * @param position :下标位置从0开始
+     */
+    public void setCurrent(int position) {
+        setCurrent(position, mTabScroll);
+    }
+
+    /**
+     * 设置当前位置：没点击回调
+     *
+     * @param position  :从0开始
+     * @param tabScroll :ViewPager滚动要不要动画
+     */
+    public void setCurrent(final int position, final boolean tabScroll) {
+        if (mPosition == position) {
+            return;
+        }
+        post(new Runnable() {
+            @Override
+            public void run() {
+                currentSelected(position, tabScroll);
+            }
+        });
+    }
+
+    private void currentSelected(int position, boolean tabScroll) {
+        // 1. 固定回调，最后都会走 onPageSelected
+        if (mViewPager != null) {
+            mViewPager.setCurrentItem(position, tabScroll);
+        } else {
+            onPageSelected(position);
         }
     }
 
@@ -201,6 +242,7 @@ public class XTabLayout extends HorizontalScrollView implements ViewPager.OnPage
         }
 
         mTabContainer.updateLine(position, 0);
+
         smoothScrollTab(position);
     }
 
@@ -222,12 +264,9 @@ public class XTabLayout extends HorizontalScrollView implements ViewPager.OnPage
      * 用户点击时，不断滚动到当前的位置
      */
     private void smoothScrollTab(int position) {
-        // 总的滚动距离
-        float totalScroll = (position) * mTabContainer.getItemWidth(position);
-        // 左边的偏移
-        float offsetScroll = (getWidth() - mTabContainer.getItemWidth(position)) / 2;
-        // 最终要滚的距离
-        float finalScroll = totalScroll - offsetScroll;
+        // 最终要滚的距离 = 总的滚动距离(item到左边的距离 + item一半宽度) - 控件宽度(就是实际布局里面写的宽度)/2
+        float finalScroll = mTabContainer.getItemView(position).getLeft()
+                + mTabContainer.getItemWidth(position) / 2f - getWidth() / 2f;
         smoothScrollTo((int) finalScroll, 0);
     }
 

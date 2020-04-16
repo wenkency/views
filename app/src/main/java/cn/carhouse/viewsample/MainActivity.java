@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -29,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         XTabLayout tabLayout = findViewById(R.id.tab_layout);
         ViewPager viewPager = findViewById(R.id.view_pager);
         final List<String> data = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 15; i++) {
             data.add("");
         }
         viewPager.setAdapter(new XQuickPagerAdapter<String>(data, R.layout.item_view_pager, false) {
@@ -42,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         tabCommAdapter = new XCommAdapter<String>(this, data, R.layout.item_tab_layout) {
             @Override
             public void convert(XViewHolder holder, String item, int position) {
-                holder.setText(R.id.tv, "Tab" + position);
+                holder.setText(R.id.tv, "TabTab" + position);
                 String url = "https://img.car-house.cn/Upload/activity/20200226/TZ5izRtnAzWGHSYKWeBBx6yhPFR62aX2.png";
                 if (position % 3 == 1) {
                     url = "https://img.car-house.cn/Upload/activity/20200219/EEAmKbASEh3T3ECXFwT8D2e8m56BGhBe.jpg";
@@ -72,11 +73,19 @@ public class MainActivity extends AppCompatActivity {
         };
         // 设置底部线宽高和距离底部高度
         tabLayout.setLineWidth(100);
-        tabLayout.setLineHeight(20);
-        tabLayout.setTabLineBottomMargin(10);
-        tabLayout.setTabEqual(true);
-
-        tabLayout.setAdapter(tabCommAdapter, viewPager);
+        tabLayout.setLineHeight(10);
+        tabLayout.setTabLineBottomMargin(5);
+        // 设置一屏显示5个
+        tabLayout.setTabCount(5);
+        // 设置点击回调
+        tabLayout.setOnItemClickListener(new XTabLayout.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, View item) {
+                Toast.makeText(MainActivity.this, "position:" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+        // 设置默认位置为2下标，也就是3
+        tabLayout.setAdapter(tabCommAdapter, viewPager, 2);
 
     }
 }

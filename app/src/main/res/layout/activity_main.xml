@@ -11,8 +11,7 @@
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        android:background="#45124545"
-        app:tabCount="3" />
+        android:background="#45124545" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
