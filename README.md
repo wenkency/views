@@ -20,7 +20,7 @@ allprojects {
 	}
 
 
-implementation 'com.github.wenkency:views:1.3.0'
+implementation 'com.github.wenkency:views:1.4.0'
 
 ```
 
