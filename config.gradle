@@ -1,8 +1,9 @@
 ext {
     app = [
-            compileSdkVersion: 29,
+            compileSdkVersion: 30,
+            buildToolsVersion: "30.0.0",
             minSdkVersion    : 15,
-            targetSdkVersion : 29,
+            targetSdkVersion : 30,
             versionCode      : 1,
             versionName      : "1.0"
     ]
@@ -11,16 +12,14 @@ ext {
     versions = [
             appcompat   : "1.1.0",
             recyclerview: "1.1.0-rc01",
-            imageloader : "2.2.0",
-            quickadapter : "1.4.0",
             constraintlayout : "1.1.3",
     ]
     // 公共配置
     depsLibs = [
             appcompat: "androidx.appcompat:appcompat:${versions.appcompat}",
             recyclerview: "androidx.recyclerview:recyclerview:${versions.recyclerview}",
-            imageloader: "com.github.wenkency:imageloader:${versions.imageloader}",
-            quickadapter: "com.github.wenkency:quickadapter:${versions.quickadapter}",
+            imageloader: "com.github.wenkency:imageloader:2.4.0",
+            quickadapter: "com.github.wenkency:quickadapter:1.6.0",
             constraintlayout: "androidx.constraintlayout:constraintlayout:${versions.constraintlayout}",
     ]
 }

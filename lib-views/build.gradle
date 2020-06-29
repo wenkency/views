@@ -2,12 +2,12 @@ apply plugin: 'com.android.library'
 
 // 远程仓库
 apply plugin: 'com.github.dcendents.android-maven'
-group='com.github.wenkency'
+group = 'com.github.wenkency'
 def app = rootProject.ext.app
 def libs = rootProject.ext.depsLibs
 android {
     compileSdkVersion app.compileSdkVersion
-
+    buildToolsVersion app.buildToolsVersion
     defaultConfig {
         minSdkVersion app.minSdkVersion
         targetSdkVersion app.targetSdkVersion
@@ -29,6 +29,10 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     /*循环收入包*/
-    libs.each { k, v -> implementation v }
+    compileOnly depsLibs.appcompat
+    compileOnly depsLibs.recyclerview
+    compileOnly depsLibs.imageloader
+    compileOnly depsLibs.quickadapter
+    compileOnly depsLibs.constraintlayout
 
 }

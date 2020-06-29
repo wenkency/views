@@ -9,7 +9,7 @@ buildscript {
 
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.6.2'
+        classpath 'com.android.tools.build:gradle:4.0.0'
         // 代码发布到远程仓库 https://jitpack.io/
         classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
     }

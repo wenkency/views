@@ -20,7 +20,9 @@ allprojects {
 	}
 
 
-implementation 'com.github.wenkency:views:1.4.0'
+implementation 'com.github.wenkency:views:1.5.0'
+implementation 'com.github.wenkency:imageloader:2.4.0'
+implementation 'com.github.wenkency:quickadapter:1.6.0'
 
 ```
 

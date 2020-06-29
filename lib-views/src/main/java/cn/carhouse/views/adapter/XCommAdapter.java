@@ -20,6 +20,7 @@ public abstract class XCommAdapter<T> extends XBaseAdapter {
     protected Context mContext;
     protected LayoutInflater mInflater;
 
+
     public XCommAdapter(Context context, List<T> data, int layoutId) {
         this.mContext = context;
         this.mData = data == null ? new ArrayList<T>() : new ArrayList<T>(data);
@@ -49,6 +50,11 @@ public abstract class XCommAdapter<T> extends XBaseAdapter {
     //==========================================数据相关================================================
     public void add(T elem) {
         mData.add(elem);
+        notifyDataSetChanged();
+    }
+
+    public void add(int index, T elem) {
+        mData.add(index, elem);
         notifyDataSetChanged();
     }
 
@@ -146,4 +152,6 @@ public abstract class XCommAdapter<T> extends XBaseAdapter {
     public void convertTabReset(XViewHolder holder, T item, int position) {
 
     }
+
+
 }
