@@ -218,9 +218,8 @@ public class XTabLayout extends HorizontalScrollView implements ViewPager.OnPage
         // 1. 固定回调，最后都会走 onPageSelected
         if (mViewPager != null) {
             mViewPager.setCurrentItem(position, tabScroll);
-        } else {
-            onPageSelected(position);
         }
+        onPageSelected(position);
     }
 
     @Override

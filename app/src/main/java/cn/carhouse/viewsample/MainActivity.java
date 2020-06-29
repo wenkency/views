@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         // 设置默认位置为2下标，也就是3
-        tabLayout.setAdapter(tabCommAdapter, viewPager, 2);
+        tabLayout.setAdapter(tabCommAdapter, viewPager, 0);
 
     }
 }

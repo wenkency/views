@@ -20,7 +20,7 @@ allprojects {
 	}
 
 
-implementation 'com.github.wenkency:views:1.6.0'
+implementation 'com.github.wenkency:views:1.7.0'
 implementation 'com.github.wenkency:quickadapter:1.7.0'
 // 基于Glide图片加载封装
 implementation 'com.github.wenkency:imageloader:2.7.0'
