@@ -273,6 +273,24 @@ public class XViewHolder {
     /**
      * 根据URL加载图片
      */
+    public XViewHolder displayImage(int viewId, String url, int width, int height) {
+        View imageView = getView(viewId);
+        ImageLoaderFactory.getInstance().displayImage(imageView, url, width, height);
+        return this;
+    }
+
+    /**
+     * 根据URL加载图片
+     */
+    public XViewHolder displayImage(int viewId, String url, int errorResId, int width, int height) {
+        View imageView = getView(viewId);
+        ImageLoaderFactory.getInstance().displayImage(imageView, url, errorResId, width, height);
+        return this;
+    }
+
+    /**
+     * 根据URL加载图片
+     */
     public XViewHolder displayImage(int viewId, String url, int errorResId) {
         ImageView imageView = getView(viewId);
         ImageLoaderFactory.getInstance().displayImage(imageView, url, errorResId);

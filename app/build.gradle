@@ -25,5 +25,7 @@ dependencies {
     implementation depsLibs.imageloader
     implementation depsLibs.quickadapter
     implementation depsLibs.constraintlayout
+    implementation "com.github.bumptech.glide:glide:4.11.0"
+    annotationProcessor "com.github.bumptech.glide:compiler:4.11.0"
     implementation project(path: ':lib-views')
 }
