@@ -53,6 +53,7 @@ public class XTabLayout extends HorizontalScrollView implements ViewPager.OnPage
         int itemWidth = (int) array.getDimension(R.styleable.XTabLayout_tabWidth, 0f);
         mTabScroll = array.getBoolean(R.styleable.XTabLayout_tabIsScroll, true);
         boolean tabEqual = array.getBoolean(R.styleable.XTabLayout_tabEqual, false);
+        boolean lineEqual = array.getBoolean(R.styleable.XTabLayout_lineEqual, false);
         int lineWidth = (int) array.getDimension(R.styleable.XTabLayout_tabLineWidth, 0f);
         int lineHeight = (int) array.getDimension(R.styleable.XTabLayout_tabLineHeight, 0f);
         int tabLineBottomMargin = (int) array.getDimension(R.styleable.XTabLayout_tabLineBottomMargin, 0f);
@@ -63,6 +64,7 @@ public class XTabLayout extends HorizontalScrollView implements ViewPager.OnPage
         mTabContainer.setTabCount(tabCount);
         mTabContainer.setItemWidth(itemWidth);
         mTabContainer.setTabEqual(tabEqual);
+        mTabContainer.setLineEqual(lineEqual);
         mTabContainer.setLineWidth(lineWidth);
         mTabContainer.setLineHeight(lineHeight);
         mTabContainer.setTabLineBottomMargin(tabLineBottomMargin);
@@ -279,6 +281,10 @@ public class XTabLayout extends HorizontalScrollView implements ViewPager.OnPage
 
     public void setTabEqual(boolean tabEqual) {
         mTabContainer.setTabEqual(tabEqual);
+    }
+
+    public void setLineEqual(boolean lineEqual) {
+        mTabContainer.setLineEqual(lineEqual);
     }
 
     public void setLineWidth(int lineWidth) {

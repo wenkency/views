@@ -30,6 +30,10 @@ class XTabContainer extends FrameLayout {
      */
     private boolean mTabEqual = false;
     /**
+     * 线平分
+     */
+    private boolean mLineEqual = false;
+    /**
      * 3. 一屏幕显示的TAB个数
      */
     private int mTabCount = 0;
@@ -125,6 +129,10 @@ class XTabContainer extends FrameLayout {
         this.mTabEqual = tabEqual;
     }
 
+    public void setLineEqual(boolean lineEqual) {
+        this.mLineEqual = lineEqual;
+    }
+
     public void addLineView(View lineView) {
         if (lineView == null) {
             return;
@@ -145,8 +153,14 @@ class XTabContainer extends FrameLayout {
             // 设置线的LayoutParams
             mLineLayoutParams = new LayoutParams(layoutParams.width, layoutParams.height);
         } else {
-            // 默认线的宽高
-            mLineLayoutParams = new LayoutParams(getItemWidth(0), dip2px(2));
+            if (mTabCount > 0 && mLineEqual) {
+                XTabLayout parent = (XTabLayout) getParent();
+                int width = mScreenWidth - parent.getPaddingLeft() - parent.getPaddingRight();
+                mLineLayoutParams = new LayoutParams(width / mTabCount, mLineHeight > 0 ? mLineHeight : dip2px(2));
+            } else {
+                // 默认线的宽高
+                mLineLayoutParams = new LayoutParams(getItemWidth(0), mLineHeight > 0 ? mLineHeight : dip2px(2));
+            }
         }
         mLineLayoutParams.gravity = Gravity.BOTTOM;
         mLineLayoutParams.bottomMargin = mTabLineBottomMargin;

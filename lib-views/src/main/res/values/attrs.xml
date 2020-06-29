@@ -88,6 +88,7 @@
         <attr name="tabWidth" format="dimension" />
         <!--2. 这个是第二个优先用在每个Item的宽度-->
         <attr name="tabEqual" format="boolean" />
+        <attr name="lineEqual" format="boolean" />
         <!--3. TAB一屏幕显示的个数：这个是第三个优先用在每个Item的宽度-->
         <attr name="tabCount" format="integer" />
         <!-- 4. 和ViewPager滚动要不要动画-->

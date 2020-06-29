@@ -72,11 +72,12 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         // 设置底部线宽高和距离底部高度
-        tabLayout.setLineWidth(100);
+        //tabLayout.setLineWidth(100);
         tabLayout.setLineHeight(10);
         tabLayout.setTabLineBottomMargin(5);
         // 设置一屏显示5个
-        tabLayout.setTabCount(5);
+        tabLayout.setTabCount(2);
+        tabLayout.setLineEqual(true);
         // 设置点击回调
         tabLayout.setOnItemClickListener(new XTabLayout.OnItemClickListener() {
             @Override
