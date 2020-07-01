@@ -65,10 +65,11 @@
         <attr name="edit_right_two_icon" format="reference" />
         <attr name="edit_right_two_width" format="dimension" />
         <!--EditText相关-->
-        <attr name="edit_text" format="string" />
+        <attr name="editText" format="string" />
         <attr name="edit_hint" format="string" />
         <attr name="edit_size" format="dimension" />
         <attr name="edit_color" format="color" />
+        <attr name="edit_hint_color" format="color" />
         <!--线相关-->
         <attr name="edit_line_visible" format="boolean" />
         <attr name="edit_line_color" format="color" />

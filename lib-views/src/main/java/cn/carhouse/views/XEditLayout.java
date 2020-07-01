@@ -27,7 +27,7 @@ public class XEditLayout extends ConstraintLayout implements TextWatcher, View.O
     private int mRightIcon, mRightWidth;
     private int mRightTwoIcon, mRightTwoWidth;
     private String mText, mHint;
-    private int mTextColor;
+    private int mTextColor, mTextHintColor;
     private float mTextSize;
     private boolean mLineVisible;
     private int mLineSize, mLineColor, mLineFocusColor;
@@ -59,10 +59,11 @@ public class XEditLayout extends ConstraintLayout implements TextWatcher, View.O
         mRightWidth = (int) array.getDimension(R.styleable.XEditLayout_edit_right_width, 0);
         mRightTwoIcon = array.getResourceId(R.styleable.XEditLayout_edit_right_two_icon, 0);
         mRightTwoWidth = (int) array.getDimension(R.styleable.XEditLayout_edit_right_two_width, 0);
-        mText = array.getString(R.styleable.XEditLayout_edit_text);
+        mText = array.getString(R.styleable.XEditLayout_editText);
         mHint = array.getString(R.styleable.XEditLayout_edit_hint);
         mTextSize = array.getDimension(R.styleable.XEditLayout_edit_size, dip2px(16));
         mTextColor = array.getColor(R.styleable.XEditLayout_edit_color, Color.parseColor("#333333"));
+        mTextHintColor = array.getColor(R.styleable.XEditLayout_edit_hint_color, Color.parseColor("#cccccc"));
         mLineVisible = array.getBoolean(R.styleable.XEditLayout_edit_line_visible, false);
         mLineSize = array.getDimensionPixelSize(R.styleable.XEditLayout_edit_line_height, 0);
         mLineColor = array.getColor(R.styleable.XEditLayout_edit_line_color, Color.parseColor("#999999"));
@@ -117,6 +118,7 @@ public class XEditLayout extends ConstraintLayout implements TextWatcher, View.O
         setEditHint(mHint);
         setEditTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize);
         setEditTextColor(mTextColor);
+        setEditTextHintColor(mTextHintColor);
 
         // 设置线的信息
         setLineVisible(mLineVisible);
@@ -153,6 +155,13 @@ public class XEditLayout extends ConstraintLayout implements TextWatcher, View.O
             return;
         }
         mEtContent.setTextColor(color);
+    }
+
+    public final void setEditTextHintColor(int color) {
+        if (color == 0) {
+            return;
+        }
+        mEtContent.setHintTextColor(color);
     }
 
     public final void setEditTextSize(int unit, float textSize) {

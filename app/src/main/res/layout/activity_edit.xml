@@ -6,6 +6,10 @@
     android:orientation="vertical">
 
     <cn.carhouse.views.XEditLayout
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:id="@+id/xet"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -19,7 +23,7 @@
         app:edit_size="18dp"
         app:edit_right_two_width="60dp"
         app:edit_right_two_icon="@mipmap/ic_launcher"
-        app:edit_text="@string/app_name" />
+        app:editText="@string/app_name" />
 
     <cn.carhouse.views.XEditLayout
         android:layout_width="match_parent"
