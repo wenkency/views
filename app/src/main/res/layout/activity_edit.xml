@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <cn.carhouse.views.XEditLayout
+        android:id="@+id/xet"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:edit_color="@color/colorPrimary"
+        app:edit_left_icon="@mipmap/ic_launcher"
+        app:edit_left_width="35dp"
+        app:edit_line_visible="true"
+        app:edit_right_clear_width="35dp"
+        app:edit_right_icon="@mipmap/ic_launcher"
+        app:edit_right_width="35dp"
+        app:edit_size="18dp"
+        app:edit_right_two_width="60dp"
+        app:edit_right_two_icon="@mipmap/ic_launcher"
+        app:edit_text="@string/app_name" />
+
+    <cn.carhouse.views.XEditLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:edit_hint="@string/app_name"
+        app:edit_line_visible="true" />
+
+    <cn.carhouse.views.XEditLayout
+        app:edit_right_icon="@mipmap/ic_launcher"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:edit_line_visible="true" />
+
+    <cn.carhouse.views.XEditLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+</LinearLayout>

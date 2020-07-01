@@ -54,6 +54,27 @@
             <enum name="end" value="2" />
         </attr>
     </declare-styleable>
+    <!--自定义EditText组件-->
+    <declare-styleable name="XEditLayout">
+        <attr name="edit_left_icon" format="reference" />
+        <attr name="edit_left_width" format="dimension" />
+        <attr name="edit_right_clear_icon" format="reference" />
+        <attr name="edit_right_clear_width" format="dimension" />
+        <attr name="edit_right_icon" format="reference" />
+        <attr name="edit_right_width" format="dimension" />
+        <attr name="edit_right_two_icon" format="reference" />
+        <attr name="edit_right_two_width" format="dimension" />
+        <!--EditText相关-->
+        <attr name="edit_text" format="string" />
+        <attr name="edit_hint" format="string" />
+        <attr name="edit_size" format="dimension" />
+        <attr name="edit_color" format="color" />
+        <!--线相关-->
+        <attr name="edit_line_visible" format="boolean" />
+        <attr name="edit_line_color" format="color" />
+        <attr name="edit_line_height" format="dimension" />
+        <attr name="edit_line_focus_color" format="color" />
+    </declare-styleable>
 
     <declare-styleable name="BannerView">
         <attr name="point_style" format="enum">
