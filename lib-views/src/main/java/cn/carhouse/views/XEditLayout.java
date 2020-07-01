@@ -1,9 +1,11 @@
 package cn.carhouse.views;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -29,8 +31,10 @@ public class XEditLayout extends ConstraintLayout implements TextWatcher, View.O
     private String mText, mHint;
     private int mTextColor, mTextHintColor;
     private float mTextSize;
-    private boolean mLineVisible;
+    private boolean mLineVisible, mIsPassInputType;
     private int mLineSize, mLineColor, mLineFocusColor;
+    private int inputType;
+    private View.OnFocusChangeListener onFocusChangeListener;
 
     public XEditLayout(Context context) {
         this(context, null);
@@ -49,7 +53,9 @@ public class XEditLayout extends ConstraintLayout implements TextWatcher, View.O
         initViews();
     }
 
+    @SuppressLint("ResourceType")
     private void initAttributes(Context context, AttributeSet attrs) {
+
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.XEditLayout);
         mLeftIcon = array.getResourceId(R.styleable.XEditLayout_edit_left_icon, 0);
         mLeftWidth = (int) array.getDimension(R.styleable.XEditLayout_edit_left_width, 0);
@@ -65,9 +71,11 @@ public class XEditLayout extends ConstraintLayout implements TextWatcher, View.O
         mTextColor = array.getColor(R.styleable.XEditLayout_edit_color, Color.parseColor("#333333"));
         mTextHintColor = array.getColor(R.styleable.XEditLayout_edit_hint_color, Color.parseColor("#cccccc"));
         mLineVisible = array.getBoolean(R.styleable.XEditLayout_edit_line_visible, false);
+        mIsPassInputType = array.getBoolean(R.styleable.XEditLayout_editPassInputType, false);
         mLineSize = array.getDimensionPixelSize(R.styleable.XEditLayout_edit_line_height, 0);
         mLineColor = array.getColor(R.styleable.XEditLayout_edit_line_color, Color.parseColor("#999999"));
         mLineFocusColor = array.getColor(R.styleable.XEditLayout_edit_line_color, Color.parseColor("#dd2828"));
+        inputType = array.getInt(R.styleable.XEditLayout_editInputType, 0);
         array.recycle();
     }
 
@@ -119,6 +127,11 @@ public class XEditLayout extends ConstraintLayout implements TextWatcher, View.O
         setEditTextSize(TypedValue.COMPLEX_UNIT_PX, mTextSize);
         setEditTextColor(mTextColor);
         setEditTextHintColor(mTextHintColor);
+        setInputType(inputType);
+        // 设置密码输入样式
+        if (mIsPassInputType) {
+            changePassInputType(false);
+        }
 
         // 设置线的信息
         setLineVisible(mLineVisible);
@@ -155,6 +168,29 @@ public class XEditLayout extends ConstraintLayout implements TextWatcher, View.O
             return;
         }
         mEtContent.setTextColor(color);
+    }
+
+    public void setInputType(int type) {
+        if (type != 0) {
+            mEtContent.setInputType(type);
+            // 将光标移动到最后
+            if (mEtContent.isFocused()) {
+                mEtContent.setSelection(mEtContent.length());
+            }
+        }
+    }
+
+    /**
+     * 这里是更改密码可见状态
+     *
+     * @param isVisible
+     */
+    public final void changePassInputType(boolean isVisible) {
+        if (isVisible) {
+            setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+        } else {
+            setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        }
     }
 
     public final void setEditTextHintColor(int color) {
@@ -214,6 +250,9 @@ public class XEditLayout extends ConstraintLayout implements TextWatcher, View.O
             changeClearIcon(false);
         }
         changeLineFocus(focus);
+        if (onFocusChangeListener != null) {
+            onFocusChangeListener.onFocusChange(view, focus);
+        }
     }
 
     /**
@@ -298,5 +337,10 @@ public class XEditLayout extends ConstraintLayout implements TextWatcher, View.O
         if (text != null) {
             mEtContent.setText(text);
         }
+    }
+
+    @Override
+    public void setOnFocusChangeListener(OnFocusChangeListener onFocusChangeListener) {
+        this.onFocusChangeListener = onFocusChangeListener;
     }
 }

@@ -6,36 +6,40 @@
     android:orientation="vertical">
 
     <cn.carhouse.views.XEditLayout
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
         android:id="@+id/xet"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        app:editText="@string/app_name"
         app:edit_color="@color/colorPrimary"
         app:edit_left_icon="@mipmap/ic_launcher"
         app:edit_left_width="35dp"
         app:edit_line_visible="true"
         app:edit_right_clear_width="35dp"
         app:edit_right_icon="@mipmap/ic_launcher"
-        app:edit_right_width="35dp"
-        app:edit_size="18dp"
-        app:edit_right_two_width="60dp"
         app:edit_right_two_icon="@mipmap/ic_launcher"
-        app:editText="@string/app_name" />
+        app:edit_right_two_width="60dp"
+        app:edit_right_width="35dp"
+        app:editInputType="textPassword"
+        app:edit_size="18dp" />
 
     <cn.carhouse.views.XEditLayout
+        android:id="@+id/xet2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:edit_hint="@string/app_name"
+        app:editText="1234aaaa"
+        app:editPassInputType="true"
         app:edit_line_visible="true" />
 
     <cn.carhouse.views.XEditLayout
-        app:edit_right_icon="@mipmap/ic_launcher"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        app:edit_line_visible="true" />
+        app:edit_line_visible="true"
+        app:edit_right_icon="@mipmap/ic_launcher" />
 
     <cn.carhouse.views.XEditLayout
         android:layout_width="match_parent"
