@@ -3,7 +3,6 @@ package cn.carhouse.views;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -87,16 +86,9 @@ public class XTextLayout extends FrameLayout {
 
     private final void initViews() {
         // 左边
-        if (mLeftIcon != 0) {
-            mIvLeft.setImageResource(mLeftIcon);
-        }
+        setLeftIcon(mLeftIcon);
         // 设置图片大小和左边距
-        if (mLeftIconWidth > 0 || mLeftPadding > 0) {
-            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mIvLeft.getLayoutParams();
-            params.leftMargin = mLeftPadding;
-            params.width = mLeftIconWidth;
-            mIvLeft.setLayoutParams(params);
-        }
+        setLeftIconWidthPadding();
         if (mLeftTextSize > 0) {
             mTvLeft.setTextSize(TypedValue.COMPLEX_UNIT_PX, mLeftTextSize);
         }
@@ -111,12 +103,7 @@ public class XTextLayout extends FrameLayout {
         if (mRightIcon != 0) {
             mIvRight.setImageResource(mRightIcon);
         }
-        if (mRightPadding > 0 || mRightIconWidth > 0) {
-            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mIvRight.getLayoutParams();
-            params.rightMargin = mRightPadding;
-            params.width = mRightIconWidth;
-            mIvRight.setLayoutParams(params);
-        }
+        setRightIconWidthPadding();
         if (mRightTextSize > 0) {
             mTvRight.setTextSize(TypedValue.COMPLEX_UNIT_PX, mRightTextSize);
         }
@@ -148,6 +135,7 @@ public class XTextLayout extends FrameLayout {
         }
     }
 
+
     public final void setLeftText(String text) {
         if (TextUtils.isEmpty(text)) {
             return;
@@ -167,16 +155,29 @@ public class XTextLayout extends FrameLayout {
         }
     }
 
-    public final void setLeftIcon(int drawable) {
-        Drawable icon = getResources().getDrawable(drawable);
-        if (icon != null) {
-            mTvLeft.setCompoundDrawablesWithIntrinsicBounds(icon, null, null, null);
+    public final void setLeftIcon(int resId) {
+        mLeftIcon = resId;
+        if (mLeftIcon != 0) {
+            mIvLeft.setImageResource(mLeftIcon);
         }
     }
 
+    public final void setLeftIconWidth(int width) {
+        mLeftIconWidth = width;
+        setLeftIconWidthPadding();
+    }
+
     public final void setLeftIconPadding(int padding) {
-        if (padding > 0) {
-            mTvLeft.setCompoundDrawablePadding(padding);
+        mLeftPadding = padding;
+        setLeftIconWidthPadding();
+    }
+
+    private final void setLeftIconWidthPadding() {
+        if (mLeftIconWidth > 0 || mLeftPadding > 0) {
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mIvLeft.getLayoutParams();
+            params.leftMargin = mLeftPadding;
+            params.width = mLeftIconWidth;
+            mIvLeft.setLayoutParams(params);
         }
     }
 
@@ -200,19 +201,31 @@ public class XTextLayout extends FrameLayout {
         }
     }
 
-    public final void setRightIcon(int drawable) {
-        Drawable icon = getResources().getDrawable(drawable);
-        if (icon != null) {
-            mTvRight.setCompoundDrawablesWithIntrinsicBounds(null, null, icon, null);
+    public final void setRightIcon(int resId) {
+        mRightIcon = resId;
+        if (mRightIcon != 0) {
+            mIvRight.setImageResource(resId);
         }
+    }
+
+    public final void setRightIconWidth(int width) {
+        mRightIconWidth = width;
+        setRightIconWidthPadding();
     }
 
     public final void setRightIconPadding(int padding) {
-        if (padding > 0) {
-            mTvRight.setCompoundDrawablePadding(padding);
-        }
+        mRightPadding = padding;
+        setRightIconWidthPadding();
     }
 
+    private final void setRightIconWidthPadding() {
+        if (mRightPadding > 0 || mRightIconWidth > 0) {
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mIvRight.getLayoutParams();
+            params.rightMargin = mRightPadding;
+            params.width = mRightIconWidth;
+            mIvRight.setLayoutParams(params);
+        }
+    }
 
     /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
@@ -221,4 +234,23 @@ public class XTextLayout extends FrameLayout {
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, getResources().getDisplayMetrics());
     }
 
+    public ImageView getIvLeft() {
+        return mIvLeft;
+    }
+
+    public ImageView getIvRight() {
+        return mIvRight;
+    }
+
+    public ImageView getIvRightTwo() {
+        return mIvRightTwo;
+    }
+
+    public TextView getTvLeft() {
+        return mTvLeft;
+    }
+
+    public TextView getTvRight() {
+        return mTvRight;
+    }
 }
