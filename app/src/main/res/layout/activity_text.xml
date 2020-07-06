@@ -6,8 +6,9 @@
     android:orientation="vertical">
 
     <cn.carhouse.views.XTextLayout
+        app:textLeftIconWidth="80dp"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="180dp"
         app:textLeftIcon="@mipmap/ic_launcher"
         app:textLeftIconPadding="10dp"
         app:textLeftMargin="10dp"
@@ -17,5 +18,6 @@
         app:textRightIconPadding="10dp"
         app:textRightMargin="10dp"
         app:textRightText="右边"
+        app:textRightTwoIcon="@drawable/x_edit_clear_icon"
         app:textShowLine="true" />
 </LinearLayout>

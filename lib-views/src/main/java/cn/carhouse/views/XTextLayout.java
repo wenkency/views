@@ -9,19 +9,23 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 /**
  * 自定义布局
  */
 public class XTextLayout extends FrameLayout {
+    private ImageView mIvLeft, mIvRight, mIvRightTwo;
     private TextView mTvLeft, mTvRight;
     private View mViewLine;
-    private Drawable mLeftIcon, mRightIcon;
+    private int mLeftIcon, mRightIcon, mRightTwoIcon;
+    private int mLeftIconWidth, mRightIconWidth, mRightIconTwoWidth;
     private int mLeftTextColor, mRightTextColor;
     private int mLeftTextSize, mRightTextSize;
     private int mLeftMargin, mRightMargin;
-    private int mLeftPadding, mRightPadding;
+    private int mLeftPadding, mRightPadding, mRightTwoPadding;
     private int mLineColor, mLineHeight, mLineLeftMargin, mLineRightMargin;
     private boolean mShowLine;
     private String mLeftText, mRightText;
@@ -47,20 +51,29 @@ public class XTextLayout extends FrameLayout {
         mTvLeft = findViewById(R.id.tvLeft);
         mTvRight = findViewById(R.id.tvRight);
         mViewLine = findViewById(R.id.viewLine);
+        mIvLeft = findViewById(R.id.ivLeft);
+        mIvRight = findViewById(R.id.ivRight);
+        mIvRightTwo = findViewById(R.id.ivRightTwo);
     }
 
     private final void initAttrs(Context context, AttributeSet attrs) {
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.XTextLayout);
-        mLeftIcon = array.getDrawable(R.styleable.XTextLayout_textLeftIcon);
-        mRightIcon = array.getDrawable(R.styleable.XTextLayout_textLeftIcon);
+        mLeftIcon = array.getResourceId(R.styleable.XTextLayout_textLeftIcon, 0);
+        mRightIcon = array.getResourceId(R.styleable.XTextLayout_textRightIcon, 0);
+        mRightTwoIcon = array.getResourceId(R.styleable.XTextLayout_textRightTwoIcon, 0);
         mLeftTextColor = array.getColor(R.styleable.XTextLayout_textLeftTextColor, Color.parseColor("#333333"));
         mRightTextColor = array.getColor(R.styleable.XTextLayout_textRightTextColor, Color.parseColor("#999999"));
         mLeftTextSize = array.getDimensionPixelSize(R.styleable.XTextLayout_textLeftTextSize, dp2px(16));
         mRightTextSize = array.getDimensionPixelSize(R.styleable.XTextLayout_textRightTextSize, dp2px(16));
+        mLeftIconWidth = array.getDimensionPixelSize(R.styleable.XTextLayout_textLeftIconWidth, LayoutParams.WRAP_CONTENT);
+        mRightIconWidth = array.getDimensionPixelSize(R.styleable.XTextLayout_textRightIconWidth, LayoutParams.WRAP_CONTENT);
+        mRightIconTwoWidth = array.getDimensionPixelSize(R.styleable.XTextLayout_textRightIconTwoWidth, LayoutParams.WRAP_CONTENT);
+
         mLeftMargin = array.getDimensionPixelSize(R.styleable.XTextLayout_textLeftMargin, 0);
         mRightMargin = array.getDimensionPixelSize(R.styleable.XTextLayout_textRightMargin, 0);
         mLeftPadding = array.getDimensionPixelSize(R.styleable.XTextLayout_textLeftIconPadding, 0);
         mRightPadding = array.getDimensionPixelSize(R.styleable.XTextLayout_textRightIconPadding, 0);
+        mRightTwoPadding = array.getDimensionPixelSize(R.styleable.XTextLayout_textRightIconTwoPadding, 0);
         mLeftText = array.getString(R.styleable.XTextLayout_textLeftText);
         mRightText = array.getString(R.styleable.XTextLayout_textRightText);
 
@@ -74,39 +87,56 @@ public class XTextLayout extends FrameLayout {
 
     private final void initViews() {
         // 左边
-        if (mLeftIcon != null) {
-            mTvLeft.setCompoundDrawablesWithIntrinsicBounds(mLeftIcon, null, null, null);
+        if (mLeftIcon != 0) {
+            mIvLeft.setImageResource(mLeftIcon);
         }
-        if (mLeftPadding > 0) {
-            mTvLeft.setCompoundDrawablePadding(mLeftPadding);
+        // 设置图片大小和左边距
+        if (mLeftIconWidth > 0 || mLeftPadding > 0) {
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mIvLeft.getLayoutParams();
+            params.leftMargin = mLeftPadding;
+            params.width = mLeftIconWidth;
+            mIvLeft.setLayoutParams(params);
         }
         if (mLeftTextSize > 0) {
             mTvLeft.setTextSize(TypedValue.COMPLEX_UNIT_PX, mLeftTextSize);
         }
         mTvLeft.setTextColor(mLeftTextColor);
         if (mLeftMargin > 0) {
-            FrameLayout.LayoutParams params = (LayoutParams) mTvLeft.getLayoutParams();
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mTvLeft.getLayoutParams();
             params.leftMargin = mLeftMargin;
             mTvLeft.setLayoutParams(params);
         }
         setLeftText(mLeftText);
         // 右边
-        if (mRightIcon != null) {
-            mTvRight.setCompoundDrawablesWithIntrinsicBounds(null, null, mRightIcon, null);
+        if (mRightIcon != 0) {
+            mIvRight.setImageResource(mRightIcon);
         }
-        if (mRightPadding > 0) {
-            mTvRight.setCompoundDrawablePadding(mRightPadding);
+        if (mRightPadding > 0 || mRightIconWidth > 0) {
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mIvRight.getLayoutParams();
+            params.rightMargin = mRightPadding;
+            params.width = mRightIconWidth;
+            mIvRight.setLayoutParams(params);
         }
         if (mRightTextSize > 0) {
             mTvRight.setTextSize(TypedValue.COMPLEX_UNIT_PX, mRightTextSize);
         }
         mTvRight.setTextColor(mRightTextColor);
         if (mRightMargin > 0) {
-            FrameLayout.LayoutParams params = (LayoutParams) mTvRight.getLayoutParams();
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mTvRight.getLayoutParams();
             params.rightMargin = mRightMargin;
             mTvRight.setLayoutParams(params);
         }
         setRightText(mRightText);
+        // 右边第二个图片
+        if (mRightTwoIcon != 0) {
+            mIvRightTwo.setImageResource(mRightTwoIcon);
+        }
+        if (mRightTwoPadding > 0 || mRightIconTwoWidth > 0) {
+            LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mIvRightTwo.getLayoutParams();
+            params.rightMargin = mRightTwoPadding;
+            params.width = mRightIconTwoWidth;
+            mIvRightTwo.setLayoutParams(params);
+        }
         // 线
         if (mShowLine) {
             mViewLine.setVisibility(View.VISIBLE);

@@ -56,6 +56,7 @@
     </declare-styleable>
     <declare-styleable name="XTextLayout">
         <attr name="textLeftIcon" format="reference" />
+        <attr name="textLeftIconWidth" format="dimension" />
         <attr name="textLeftIconPadding" format="dimension" />
         <attr name="textLeftTextSize" format="dimension" />
         <attr name="textLeftMargin" format="dimension" />
@@ -63,11 +64,17 @@
         <attr name="textLeftText" format="string" />
         <!--右边-->
         <attr name="textRightIcon" format="reference" />
+        <attr name="textRightIconWidth" format="dimension" />
         <attr name="textRightIconPadding" format="dimension" />
         <attr name="textRightTextSize" format="dimension" />
         <attr name="textRightMargin" format="dimension" />
         <attr name="textRightTextColor" format="color" />
         <attr name="textRightText" format="string" />
+
+        <!--右边 第二个图片-->
+        <attr name="textRightTwoIcon" format="reference" />
+        <attr name="textRightIconTwoWidth" format="dimension" />
+        <attr name="textRightIconTwoPadding" format="dimension" />
         <!--线-->
         <attr name="textShowLine" format="boolean" />
         <attr name="textLineLeftMargin" format="dimension" />
