@@ -54,6 +54,27 @@
             <enum name="end" value="2" />
         </attr>
     </declare-styleable>
+    <declare-styleable name="XTextLayout">
+        <attr name="textLeftIcon" format="reference" />
+        <attr name="textLeftIconPadding" format="dimension" />
+        <attr name="textLeftTextSize" format="dimension" />
+        <attr name="textLeftMargin" format="dimension" />
+        <attr name="textLeftTextColor" format="color" />
+        <attr name="textLeftText" format="string" />
+        <!--右边-->
+        <attr name="textRightIcon" format="reference" />
+        <attr name="textRightIconPadding" format="dimension" />
+        <attr name="textRightTextSize" format="dimension" />
+        <attr name="textRightMargin" format="dimension" />
+        <attr name="textRightTextColor" format="color" />
+        <attr name="textRightText" format="string" />
+        <!--线-->
+        <attr name="textShowLine" format="boolean" />
+        <attr name="textLineLeftMargin" format="dimension" />
+        <attr name="textLineRightMargin" format="dimension" />
+        <attr name="textLineHeight" format="dimension" />
+        <attr name="textLineColor" format="color" />
+    </declare-styleable>
     <!--自定义EditText组件-->
     <declare-styleable name="XEditLayout">
         <attr name="edit_left_icon" format="reference" />

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <cn.carhouse.views.XTextLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        app:textLeftIcon="@mipmap/ic_launcher"
+        app:textLeftIconPadding="10dp"
+        app:textLeftMargin="10dp"
+        app:textLeftText="左边"
+        app:textLineHeight="5dp"
+        app:textRightIcon="@mipmap/ic_launcher"
+        app:textRightIconPadding="10dp"
+        app:textRightMargin="10dp"
+        app:textRightText="右边"
+        app:textShowLine="true" />
+</LinearLayout>
