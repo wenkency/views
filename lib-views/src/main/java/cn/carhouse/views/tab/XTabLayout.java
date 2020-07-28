@@ -233,12 +233,12 @@ public class XTabLayout extends HorizontalScrollView implements ViewPager.OnPage
         isScroll = false;
 
         // 1. 重置
-        if (mPosition >= 0) {
+        if (mPosition >= 0 && mTabContainer.getItemView(mPosition) != null) {
             mAdapter.onTabReset(mTabContainer.getItemView(mPosition), mPosition);
         }
         mPosition = position;
         // 2. 重置选中
-        if (mPosition >= 0) {
+        if (mPosition >= 0 && mTabContainer.getItemView(mPosition) != null) {
             mAdapter.onTabSelected(mTabContainer.getItemView(mPosition), mPosition);
         }
 

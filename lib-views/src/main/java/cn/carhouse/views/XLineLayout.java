@@ -84,26 +84,23 @@ public class XLineLayout extends XViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-
-        if (changed){
-            int count = getChildCount();
-            int cl = getPaddingLeft();
-            int ct = getPaddingTop();
-            // 摆放
-            for (int i = 0; i < count; i++) {
-                View child = getChildAt(i);
-                if (child.getVisibility() == GONE) {
-                    continue;
-                }
-                int width = child.getMeasuredWidth();
-                int height = child.getMeasuredHeight();
-                if (i > 0) {
-                    // 计算第二个后面子View左边的位置
-                    cl += (int) (mViewMarginRate * width + 0.5f);
-                }
-                // 摆放子View
-                child.layout(cl, ct, cl + width, ct + height);
+        int count = getChildCount();
+        int cl = getPaddingLeft();
+        int ct = getPaddingTop();
+        // 摆放
+        for (int i = 0; i < count; i++) {
+            View child = getChildAt(i);
+            if (child.getVisibility() == GONE) {
+                continue;
             }
+            int width = child.getMeasuredWidth();
+            int height = child.getMeasuredHeight();
+            if (i > 0) {
+                // 计算第二个后面子View左边的位置
+                cl += (int) (mViewMarginRate * width + 0.5f);
+            }
+            // 摆放子View
+            child.layout(cl, ct, cl + width, ct + height);
         }
     }
 

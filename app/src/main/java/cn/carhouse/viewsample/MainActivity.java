@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        tabCommAdapter = new XCommAdapter<String>(this, data, R.layout.item_tab_layout) {
+        tabCommAdapter = new XCommAdapter<String>(this, null, R.layout.item_tab_layout) {
             @Override
             public void convert(XViewHolder holder, String item, int position) {
                 holder.setText(R.id.tv, "TabTab" + position);

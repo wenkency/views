@@ -123,7 +123,7 @@ public abstract class XCommAdapter<T> extends XBaseAdapter {
 
     @Override
     public final void onTabReset(View view, int position) {
-        if (view.getTag() == null) {
+        if (view == null || view.getTag() == null) {
             return;
         }
         XViewHolder holder = (XViewHolder) view.getTag();
@@ -132,7 +132,7 @@ public abstract class XCommAdapter<T> extends XBaseAdapter {
 
     @Override
     public final void onTabSelected(View view, int position) {
-        if (view.getTag() == null) {
+        if (view == null || view.getTag() == null) {
             return;
         }
         XViewHolder holder = (XViewHolder) view.getTag();

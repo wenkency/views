@@ -132,40 +132,37 @@ public class XFlowLayout extends ViewGroup {
 
     @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
-        if (changed) {
-
-            // 子View的起始位置
-            int left = getPaddingLeft();
-            int top = getPaddingTop();
-            // 控件的宽
-            int measuredWidth = getMeasuredWidth();
-            for (int i = 0; i < showMaxLine && i < mViews.size(); i++) {
-                List<View> views = mViews.get(i);
-                // 行宽
-                int lineMargin = 0;
-                // 如果平分
-                if (isSquare && views.size() > 1) {
-                    int lineWidth = getLineWidth(views);
-                    lineMargin = (measuredWidth - lineWidth) / (views.size() - 1);
-                }
-                Integer lineHeight = mHeights.get(i);
-                for (View view : views) {
-                    if (view.getVisibility() == View.GONE) {
-                        continue;
-                    }
-                    MarginLayoutParams lp = (MarginLayoutParams) view.getLayoutParams();
-                    int lc = left + lp.leftMargin;
-                    int rc = lc + view.getMeasuredWidth() + lp.rightMargin;
-                    int tc = top + lp.topMargin;
-                    int bc = tc + view.getMeasuredHeight() + lp.bottomMargin;
-                    view.layout(lc, tc, rc, bc);
-                    // 叠加左边的位置
-                    left += lp.leftMargin + view.getMeasuredWidth() + lp.rightMargin + lineMargin;
-                }
-                // 下一行的宽度和高度
-                left = getPaddingLeft();
-                top += lineHeight;
+        // 子View的起始位置
+        int left = getPaddingLeft();
+        int top = getPaddingTop();
+        // 控件的宽
+        int measuredWidth = getMeasuredWidth();
+        for (int i = 0; i < showMaxLine && i < mViews.size(); i++) {
+            List<View> views = mViews.get(i);
+            // 行宽
+            int lineMargin = 0;
+            // 如果平分
+            if (isSquare && views.size() > 1) {
+                int lineWidth = getLineWidth(views);
+                lineMargin = (measuredWidth - lineWidth) / (views.size() - 1);
             }
+            Integer lineHeight = mHeights.get(i);
+            for (View view : views) {
+                if (view.getVisibility() == View.GONE) {
+                    continue;
+                }
+                MarginLayoutParams lp = (MarginLayoutParams) view.getLayoutParams();
+                int lc = left + lp.leftMargin;
+                int rc = lc + view.getMeasuredWidth() + lp.rightMargin;
+                int tc = top + lp.topMargin;
+                int bc = tc + view.getMeasuredHeight() + lp.bottomMargin;
+                view.layout(lc, tc, rc, bc);
+                // 叠加左边的位置
+                left += lp.leftMargin + view.getMeasuredWidth() + lp.rightMargin + lineMargin;
+            }
+            // 下一行的宽度和高度
+            left = getPaddingLeft();
+            top += lineHeight;
         }
     }
 

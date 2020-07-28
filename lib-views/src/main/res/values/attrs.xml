@@ -31,6 +31,7 @@
     <!--宽度平分-->
     <declare-styleable name="WidthEqualsLayout">
         <attr name="width_counts" format="integer" />
+        <attr name="heightEquals" format="boolean" />
     </declare-styleable>
 
     <!--物流进度-->

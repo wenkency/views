@@ -20,6 +20,8 @@ public class WidthEqualsLayout extends FrameLayout {
      * 默认是占一份
      */
     private int mCount = 1;
+    // 调度是平分宽度后的调度
+    private boolean heightEquals;
 
 
     public WidthEqualsLayout(@NonNull Context context) {
@@ -34,6 +36,7 @@ public class WidthEqualsLayout extends FrameLayout {
         super(context, attrs, defStyleAttr);
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.WidthEqualsLayout);
         mCount = array.getInt(R.styleable.WidthEqualsLayout_width_counts, mCount);
+        heightEquals = array.getBoolean(R.styleable.WidthEqualsLayout_heightEquals, false);
         array.recycle();
     }
 
@@ -41,6 +44,10 @@ public class WidthEqualsLayout extends FrameLayout {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         int width = MeasureSpec.getSize(widthMeasureSpec) / mCount;
-        setMeasuredDimension(width, MeasureSpec.getSize(heightMeasureSpec));
+        if (heightEquals) {
+            setMeasuredDimension(width, width);
+        } else {
+            setMeasuredDimension(width, MeasureSpec.getSize(heightMeasureSpec));
+        }
     }
 }
