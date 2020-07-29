@@ -153,6 +153,9 @@ public class XTabLayout extends HorizontalScrollView implements ViewPager.OnPage
         mPosition = -1;
         int count = mAdapter.getCount();
         mTabContainer.removeAllItemViews();
+        if (count <= 0) {
+            return;
+        }
         for (int i = 0; i < count; i++) {
             View itemView = mAdapter.getView(i, mTabContainer);
             final int position = i;
@@ -265,6 +268,9 @@ public class XTabLayout extends HorizontalScrollView implements ViewPager.OnPage
      * 用户点击时，不断滚动到当前的位置
      */
     private void smoothScrollTab(int position) {
+        if (mTabContainer.getItemView(position) == null) {
+            return;
+        }
         // 最终要滚的距离 = 总的滚动距离(item到左边的距离 + item一半宽度) - 控件宽度(就是实际布局里面写的宽度)/2
         float finalScroll = mTabContainer.getItemView(position).getLeft()
                 + mTabContainer.getItemWidth(position) / 2f - getWidth() / 2f;
