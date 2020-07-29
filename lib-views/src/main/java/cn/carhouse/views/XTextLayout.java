@@ -26,6 +26,7 @@ public class XTextLayout extends FrameLayout {
     private int mLeftMargin, mRightMargin;
     private int mLeftPadding, mRightPadding, mRightTwoPadding;
     private int mLineColor, mLineHeight, mLineLeftMargin, mLineRightMargin;
+    private int mTextLeftTextLines;
     private boolean mShowLine;
     private String mLeftText, mRightText;
 
@@ -63,6 +64,7 @@ public class XTextLayout extends FrameLayout {
         mLeftTextColor = array.getColor(R.styleable.XTextLayout_textLeftTextColor, Color.parseColor("#333333"));
         mRightTextColor = array.getColor(R.styleable.XTextLayout_textRightTextColor, Color.parseColor("#999999"));
         mLeftTextSize = array.getDimensionPixelSize(R.styleable.XTextLayout_textLeftTextSize, dp2px(16));
+        mTextLeftTextLines = array.getInt(R.styleable.XTextLayout_textLeftTextLines, 1);
         mRightTextSize = array.getDimensionPixelSize(R.styleable.XTextLayout_textRightTextSize, dp2px(16));
         mLeftIconWidth = array.getDimensionPixelSize(R.styleable.XTextLayout_textLeftIconWidth, LayoutParams.WRAP_CONTENT);
         mRightIconWidth = array.getDimensionPixelSize(R.styleable.XTextLayout_textRightIconWidth, LayoutParams.WRAP_CONTENT);
@@ -93,6 +95,7 @@ public class XTextLayout extends FrameLayout {
             mTvLeft.setTextSize(TypedValue.COMPLEX_UNIT_PX, mLeftTextSize);
         }
         mTvLeft.setTextColor(mLeftTextColor);
+        mTvLeft.setLines(mTextLeftTextLines);
         if (mLeftMargin > 0) {
             LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mTvLeft.getLayoutParams();
             params.leftMargin = mLeftMargin;

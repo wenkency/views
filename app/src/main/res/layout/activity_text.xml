@@ -12,7 +12,7 @@
         app:textLeftIcon="@mipmap/ic_launcher"
         app:textLeftIconPadding="10dp"
         app:textLeftMargin="10dp"
-        app:textLeftText="左边"
+        app:textLeftText="左边左边左边左边左边左边左边左边左边"
         app:textLineHeight="5dp"
         app:textRightIcon="@mipmap/ic_launcher"
         app:textRightIconPadding="10dp"

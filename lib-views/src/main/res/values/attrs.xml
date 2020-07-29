@@ -63,6 +63,7 @@
         <attr name="textLeftMargin" format="dimension" />
         <attr name="textLeftTextColor" format="color" />
         <attr name="textLeftText" format="string" />
+        <attr name="textLeftTextLines" format="integer" />
         <!--右边-->
         <attr name="textRightIcon" format="reference" />
         <attr name="textRightIconWidth" format="dimension" />
