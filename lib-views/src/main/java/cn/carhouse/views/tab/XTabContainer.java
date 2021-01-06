@@ -185,6 +185,9 @@ class XTabContainer extends FrameLayout {
     }
 
     public int getItemWidth(int position) {
+        if (getChildCount() <= 0) {
+            return 0;
+        }
         View child = mLLTabContainer.getChildAt(position);
         int measuredWidth = child.getMeasuredWidth();
         if (measuredWidth <= 0) {

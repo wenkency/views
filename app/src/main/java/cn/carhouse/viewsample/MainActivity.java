@@ -1,9 +1,12 @@
 package cn.carhouse.viewsample;
 
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         XTabLayout tabLayout = findViewById(R.id.tab_layout);
         ViewPager viewPager = findViewById(R.id.view_pager);
         final List<String> data = new ArrayList<>();
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 3; i++) {
             data.add("");
         }
         viewPager.setAdapter(new XQuickPagerAdapter<String>(data, R.layout.item_view_pager, false) {
@@ -40,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        tabCommAdapter = new XCommAdapter<String>(this, null, R.layout.item_tab_layout) {
+        tabCommAdapter = new XCommAdapter<String>(this, data, R.layout.item_tab_layout) {
             @Override
             public void convert(XViewHolder holder, String item, int position) {
                 holder.setText(R.id.tv, "TabTab" + position);
@@ -66,18 +69,19 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public View getTabBottomLineView(ViewGroup parent) {
-                View view = new View(parent.getContext());
-                view.setBackgroundColor(Color.RED);
+                // 这里可以创建自已的View
+                ImageView view = new ImageView(parent.getContext());
+                // 这里可以设置自己的宽高：动态宽高（适配屏幕的）
+                view.setLayoutParams(new ViewGroup.LayoutParams(100,30));
+                // 设置图片
+                view.setImageBitmap(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher));
                 return view;
             }
         };
         // 设置底部线宽高和距离底部高度
-        //tabLayout.setLineWidth(100);
-        tabLayout.setLineHeight(10);
+
         tabLayout.setTabLineBottomMargin(5);
         // 设置一屏显示5个
-        tabLayout.setTabCount(2);
-        tabLayout.setLineEqual(true);
         // 设置点击回调
         tabLayout.setOnItemClickListener(new XTabLayout.OnItemClickListener() {
             @Override
