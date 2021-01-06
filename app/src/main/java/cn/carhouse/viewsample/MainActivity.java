@@ -79,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         // 设置底部线宽高和距离底部高度
-
         tabLayout.setTabLineBottomMargin(5);
         // 设置一屏显示5个
         // 设置点击回调
