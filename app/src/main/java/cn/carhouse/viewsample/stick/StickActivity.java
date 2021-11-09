@@ -50,6 +50,7 @@ public class StickActivity extends AppCompatActivity {
             public void onTabItemClick(View view, int position) {
                 // 2. 滚动到指定位置
                 mLayoutManager.scrollToPositionWithOffset(position, 0);
+                // 弹窗，post一个，不然不行。
                 view.post(new Runnable() {
                     @Override
                     public void run() {
