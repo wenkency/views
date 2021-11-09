@@ -47,7 +47,7 @@ public class StickAdapter extends XQuickAdapter<StickBean> implements IStick {
     };
 
     public StickAdapter(Activity context) {
-        super(context, null);
+        super(context);
         setMultiSupport(support);
     }
 

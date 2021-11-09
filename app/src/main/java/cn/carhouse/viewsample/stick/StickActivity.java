@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.carhouse.alert.QuickBuilder;
+import cn.carhouse.alert.QuickDialog;
 import cn.carhouse.viewsample.R;
 
 /**
@@ -48,12 +50,38 @@ public class StickActivity extends AppCompatActivity {
             public void onTabItemClick(View view, int position) {
                 // 2. 滚动到指定位置
                 mLayoutManager.scrollToPositionWithOffset(position, 0);
+                view.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        show(view);
+                    }
+                });
+
             }
         });
 
 
     }
-
+    public void show(View view) {
+        final QuickDialog popup = new QuickBuilder(this)
+                .setContentView(R.layout.dialog_test)
+                .setFullWidth()
+                .isSetBackground(false)
+                .fromBottom(true)
+                .isDimEnabled(false)
+                .build();
+        // 显示在View的下面
+        // popup.show(view);
+        // 显示在View的下面，窗口宽居view中间
+        popup.setOnClickListener(R.id.v_bg, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                popup.dismiss();
+            }
+        });
+        // 比较特殊：自己定义模糊背景
+        popup.showViewCenter(view, true);
+    }
     private void initNet() {
         // 1. 组装一些数据
         List<StickBean> data = new ArrayList<>();
