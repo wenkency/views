@@ -1,5 +1,6 @@
 package cn.carhouse.views.banner;
 
+
 import java.util.List;
 
 import cn.carhouse.adapter.XQuickPagerAdapter;
@@ -11,6 +12,10 @@ import cn.carhouse.adapter.XQuickPagerAdapter;
 public abstract class BannerPagerAdapter<T> extends XQuickPagerAdapter<T> {
     public BannerPagerAdapter(List<T> data, int layoutId, boolean isLopper) {
         super(data, layoutId, isLopper);
+    }
+
+    public BannerPagerAdapter(List<T> data, int layoutId, boolean isLopper, boolean isCache) {
+        super(data, layoutId, isLopper, isCache);
     }
 
     public BannerPagerAdapter(List<T> data, int layoutId) {

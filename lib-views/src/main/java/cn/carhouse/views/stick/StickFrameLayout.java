@@ -14,6 +14,8 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import java.lang.reflect.Method;
 
+import cn.carhouse.views.R;
+
 /**
  * 悬浮布局封装
  */
@@ -94,7 +96,7 @@ public class StickFrameLayout extends FrameLayout {
             }
             if (mStickView == null) {
                 // 根据类型创建ViewHolder
-                mStickyLayout.setTag(STACK_KEY, stickPosition);
+                mStickyLayout.setTag(R.id.stick_view_position, stickPosition);
                 RecyclerView.ViewHolder viewHolder = adapter.onCreateViewHolder(mStickyLayout, stick.getStickViewType());
                 // 根据位置绑定View
                 adapter.onBindViewHolder(viewHolder, stickPosition);

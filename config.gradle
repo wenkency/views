@@ -19,7 +19,7 @@ ext {
             appcompat: "androidx.appcompat:appcompat:${versions.appcompat}",
             recyclerview: "androidx.recyclerview:recyclerview:${versions.recyclerview}",
             imageloader: "com.github.wenkency:imageloader:2.7.0",
-            quickadapter: "com.github.wenkency:quickadapter:1.7.0",
+            quickadapter: "com.github.wenkency:quickadapter:2.0.0",
             constraintlayout: "androidx.constraintlayout:constraintlayout:${versions.constraintlayout}",
     ]
 }
