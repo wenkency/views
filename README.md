@@ -20,13 +20,13 @@ allprojects {
 	}
 
 
-implementation 'com.github.wenkency:views:2.6.0'
-implementation 'com.github.wenkency:quickadapter:1.7.0'
+implementation 'com.github.wenkency:views:2.7.0'
+implementation 'com.github.wenkency:quickadapter:2.0.0'
 // 基于Glide图片加载封装
 implementation 'com.github.wenkency:imageloader:2.7.0'
 // Glide图片加载库
-implementation "com.github.bumptech.glide:glide:4.11.0"
-annotationProcessor "com.github.bumptech.glide:compiler:4.11.0"
+implementation "com.github.bumptech.glide:glide:4.12.0"
+annotationProcessor "com.github.bumptech.glide:compiler:4.12.0"
 
 ```
 

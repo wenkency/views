@@ -7,17 +7,19 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-   <cn.carhouse.views.banner.BannerView
-       android:id="@+id/banner_view"
-       android:layout_width="match_parent"
-       android:layout_height="185dp"
-       app:point_distance="5dp"
-       app:point_gravity="center"
-       app:point_height="2dp"
-       app:point_radius="1dp"
-       app:point_width="12dp"
-       app:radio_height="185"
-       app:radio_width="375"/>
+    <cn.carhouse.views.banner.BannerView
+        android:id="@+id/banner_view"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        app:point_bottom_distance="6dp"
+        app:point_color_unselected="@android:color/white"
+        app:point_distance="5dp"
+        app:point_gravity="center"
+        app:point_height="4dp"
+        app:point_radius="5dp"
+        app:point_select_height="5dp"
+        app:point_select_width="15dp"
+        app:point_width="4dp" />
 
 
 </LinearLayout>

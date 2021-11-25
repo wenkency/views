@@ -5,7 +5,7 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import cn.carhouse.viewsample.R;
 public class StickActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private StickAdapter mAdapter;
-    private LinearLayoutManager mLayoutManager;
+    private GridLayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,7 +41,7 @@ public class StickActivity extends AppCompatActivity {
         mAdapter = new StickAdapter(this);
         // 设置粘附的ViewID，要和StickFrameLayout里面的那个ID一样
         mAdapter.setStickViewId(R.id.stick_view_position);
-        mLayoutManager = new LinearLayoutManager(this);
+        mLayoutManager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
         // 模拟Tab条目点击事件
@@ -63,6 +63,7 @@ public class StickActivity extends AppCompatActivity {
 
 
     }
+
     public void show(View view) {
         final QuickDialog popup = new QuickBuilder(this)
                 .setContentView(R.layout.dialog_test)
@@ -83,6 +84,7 @@ public class StickActivity extends AppCompatActivity {
         // 比较特殊：自己定义模糊背景
         popup.showViewCenter(view, true);
     }
+
     private void initNet() {
         // 1. 组装一些数据
         List<StickBean> data = new ArrayList<>();

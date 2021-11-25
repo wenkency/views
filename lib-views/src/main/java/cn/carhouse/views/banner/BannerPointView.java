@@ -46,4 +46,6 @@ public class BannerPointView extends View {
         this.mRadius = radius;
         invalidate();
     }
+
+
 }

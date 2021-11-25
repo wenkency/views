@@ -7,9 +7,9 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import androidx.viewpager.widget.ViewPager;
 
@@ -35,10 +35,8 @@ import cn.carhouse.views.R;
  */
 public class BannerView<T> extends RelativeLayout {
     private BannerViewPager mBannerPager;
-    private RelativeLayout mBannerBottom;
-    private TextView mBannerDesc;
-    private LinearLayout mBannerPoints, mBannerPoints2;
-    private TextView mTvSize, mTvSizeCount;
+    private FrameLayout mBannerBottom;
+    private LinearLayout mBannerPoints;
     private BannerPagerAdapter<T> mAdapter;
 
     private int mPointSelectedColor = Color.parseColor("#ffffffff");// 点的选中颜色
@@ -47,13 +45,10 @@ public class BannerView<T> extends RelativeLayout {
     private float mRadius;// 点的圆角
     private int mPosition = -1;
     private int mPointWidth, mPointHeight;// 点的宽高
+    private int mPointSelectedWidth, mPointSelectedHeight;// 选中点的宽高
     private int mPointDistance;// 点的间距
-    private int mPointGravity = 1;// 左：-1  中：0   右：1
-
-    private int mPointStyle = STYLE_POINT;// 0 圆  1 是点 默认的
-    private static final int STYLE_CIRCLE = 0;//  圆
-    private static final int STYLE_POINT = 1;//  1 是点 默认的
-
+    private int mPointBottomDistance;// 点底部间距
+    private int mPointGravity = 0;// 左：-1  中：0   右：1
     private float mWidthRadio, mHeightRadio;// 图片的宽高比
     private OnPageSelectedListener mOnPageSelectedListener;
     /**
@@ -86,11 +81,14 @@ public class BannerView<T> extends RelativeLayout {
         // 点的宽高
         mPointWidth = (int) array.getDimension(R.styleable.BannerView_point_width, dip2px(5));
         mPointHeight = (int) array.getDimension(R.styleable.BannerView_point_height, dip2px(5));
+        // 选中点的宽高
+        mPointSelectedWidth = (int) array.getDimension(R.styleable.BannerView_point_select_width, mPointWidth);
+        mPointSelectedHeight = (int) array.getDimension(R.styleable.BannerView_point_select_height, mPointHeight);
         // 点的间距
-        // mPointDistance = (int) array.getDimension(R.styleable.BannerView_point_distance, dip2px(5));
-        mPointDistance = dip2px(3);
+        mPointDistance = (int) array.getDimension(R.styleable.BannerView_point_distance, dip2px(5));
+        mPointBottomDistance = (int) array.getDimension(R.styleable.BannerView_point_bottom_distance, dip2px(6));
         // 点的圆角
-        mRadius = array.getDimension(R.styleable.BannerView_point_radius, dip2px(3));
+        mRadius = array.getDimension(R.styleable.BannerView_point_radius, dip2px(5));
         // 点的颜色
         mPointSelectedColor = array.getColor(R.styleable.BannerView_point_color_selected, mPointSelectedColor);
         mPointUnSelectedColor = array.getColor(R.styleable.BannerView_point_color_unselected, mPointUnSelectedColor);
@@ -98,9 +96,6 @@ public class BannerView<T> extends RelativeLayout {
         mBottomColor = array.getColor(R.styleable.BannerView_banner_bottom_bg, mBottomColor);
         // 点的位置
         mPointGravity = array.getInt(R.styleable.BannerView_point_gravity, mPointGravity);
-        mPointStyle = array.getInt(R.styleable.BannerView_point_style, mPointStyle);
-
-
         mWidthRadio = array.getFloat(R.styleable.BannerView_radio_width, 0);
         mHeightRadio = array.getFloat(R.styleable.BannerView_radio_height, 0);
         array.recycle();
@@ -113,14 +108,21 @@ public class BannerView<T> extends RelativeLayout {
         mBannerPager = findViewById(R.id.m_banner_pager);
         mBannerBottom = findViewById(R.id.m_banner_bottom);
         mBannerBottom.setBackgroundColor(mBottomColor);
-        mBannerDesc = findViewById(R.id.m_banner_desc);
         mBannerPoints = findViewById(R.id.m_banner_points);
-        mBannerPoints2 = findViewById(R.id.m_banner_points2);
-
-        mTvSize = findViewById(R.id.id_tv_size);
-        mTvSizeCount = findViewById(R.id.id_tv_size2);
         // 点的位置
         mBannerPoints.setGravity(getPointGravity());
+        // 点距离底部距离
+        setBottomDistance(mPointBottomDistance);
+    }
+
+    /**
+     * 点距离底部距离
+     */
+    public void setBottomDistance(int distance) {
+        // 点
+        mBannerBottom.setPadding(mBannerBottom.getPaddingLeft(),
+                mBannerBottom.getPaddingTop(),
+                mBannerBottom.getPaddingRight(), distance);
     }
 
     /**
@@ -140,6 +142,8 @@ public class BannerView<T> extends RelativeLayout {
 
     public void setPointGravity(int gravity) {
         mPointGravity = gravity;
+        // 点的位置
+        mBannerPoints.setGravity(getPointGravity());
     }
 
     public void setAdapter(BannerPagerAdapter<T> adapter) {
@@ -174,22 +178,16 @@ public class BannerView<T> extends RelativeLayout {
         mBannerPager.setAdapter(adapter);
 
         // 初始化点
-        if (mPointStyle == STYLE_POINT) {
-            for (int i = 0; i < size; i++) {
-                BannerPointView pointView = new BannerPointView(getContext());
-                LinearLayout.LayoutParams ll = new LinearLayout.LayoutParams(mPointWidth, mPointHeight);
-                ll.leftMargin = mPointDistance;
-                mBannerPoints.addView(pointView, ll);
-                if (i == 0) {
-                    pointView.setColorAndRadius(mPointSelectedColor, mRadius);
-                } else {
-                    pointView.setColorAndRadius(mPointUnSelectedColor, mRadius);
-                }
+        for (int i = 0; i < size; i++) {
+            BannerPointView pointView = new BannerPointView(getContext());
+            LinearLayout.LayoutParams ll = new LinearLayout.LayoutParams(mPointWidth, mPointHeight);
+            ll.leftMargin = mPointDistance;
+            mBannerPoints.addView(pointView, ll);
+            if (i == 0) {
+                pointView.setColorAndRadius(mPointSelectedColor, mRadius);
+            } else {
+                pointView.setColorAndRadius(mPointUnSelectedColor, mRadius);
             }
-        } else if (mPointStyle == STYLE_CIRCLE) {
-            mBannerPoints.setVisibility(GONE);
-            mBannerPoints2.setVisibility(VISIBLE);
-
         }
         pageSelected(0);
         mBannerPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
@@ -199,11 +197,6 @@ public class BannerView<T> extends RelativeLayout {
                 pageSelected(position % mAdapter.getDataSize());
             }
         });
-        // Banner的描述
-        String desc = mAdapter.getBannerDesc(0);
-        if (desc != null) {
-            mBannerDesc.setText(desc);
-        }
         // 设置图片的宽高比
         if (mWidthRadio != 0 && mHeightRadio != 0) {
             int measuredWidth = getScreenWidth();
@@ -226,8 +219,10 @@ public class BannerView<T> extends RelativeLayout {
     }
 
     public void stopRoll() {
-        if (mBannerPager != null)
+        if (mBannerPager != null) {
             mBannerPager.stopRoll();
+        }
+
     }
 
     /**
@@ -245,27 +240,25 @@ public class BannerView<T> extends RelativeLayout {
                 if (mOnPageSelectedListener != null) {
                     mOnPageSelectedListener.onPageSelected(position);
                 }
-                if (mPointStyle == STYLE_POINT) {
-                    // 选中的变色
-                    BannerPointView currPoint = (BannerPointView) mBannerPoints.getChildAt(position);
-                    currPoint.setColorAndRadius(mPointSelectedColor, mRadius);
-                    // 上一个点也变色
-                    BannerPointView prePoint = (BannerPointView) mBannerPoints.getChildAt(mPosition);
-                    if (prePoint != null) {
-                        prePoint.setColorAndRadius(mPointUnSelectedColor, mRadius);
-                    }
-                    mPosition = position;
-                    // Banner的描述
-                    String desc = mAdapter.getBannerDesc(mPosition);
-                    if (desc != null) {
-                        mBannerDesc.setText(desc);
-                    }
-                } else if (mPointStyle == STYLE_CIRCLE) {
-                    mPosition = position;
-                    mTvSize.setText(mPosition + 1 + "/");
-                    int size = mAdapter.getDataSize();
-                    mTvSizeCount.setText(size + "");
+                // 选中的变色
+                BannerPointView currPoint = (BannerPointView) mBannerPoints.getChildAt(position);
+                LinearLayout.LayoutParams ll = (LinearLayout.LayoutParams) currPoint.getLayoutParams();
+                ll.width = mPointSelectedWidth;
+                ll.height = mPointSelectedHeight;
+                ll.leftMargin = mPointDistance;
+                currPoint.setLayoutParams(ll);
+                currPoint.setColorAndRadius(mPointSelectedColor, mRadius);
+                // 上一个点也变色
+                BannerPointView prePoint = (BannerPointView) mBannerPoints.getChildAt(mPosition);
+                if (prePoint != null) {
+                    ll = (LinearLayout.LayoutParams) prePoint.getLayoutParams();
+                    ll.width = mPointWidth;
+                    ll.height = mPointHeight;
+                    ll.leftMargin = mPointDistance;
+                    prePoint.setLayoutParams(ll);
+                    prePoint.setColorAndRadius(mPointUnSelectedColor, mRadius);
                 }
+                mPosition = position;
             }
         } catch (Exception e) {
             e.printStackTrace();

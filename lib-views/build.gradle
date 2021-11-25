@@ -34,5 +34,4 @@ dependencies {
     compileOnly depsLibs.imageloader
     compileOnly depsLibs.quickadapter
     compileOnly depsLibs.constraintlayout
-
 }

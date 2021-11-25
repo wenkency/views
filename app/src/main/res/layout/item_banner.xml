@@ -5,7 +5,7 @@
 
     <ImageView
         android:id="@+id/iv_icon"
+        android:scaleType="fitXY"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="fitXY" />
+        android:layout_height="match_parent" />
 </FrameLayout>

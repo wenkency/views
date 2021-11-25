@@ -44,6 +44,19 @@ public class StickAdapter extends XQuickAdapter<StickBean> implements IStick {
             // 条目类型
             return item.getItemViewType();
         }
+
+        @Override
+        public boolean isSpan(StickBean item) {
+            return true;
+        }
+
+        @Override
+        public int getSpanSize(StickBean item, int position) {
+            if (item.getItemViewType() == 4) {
+                return 1;
+            }
+            return 3;
+        }
     };
 
     public StickAdapter(Activity context) {

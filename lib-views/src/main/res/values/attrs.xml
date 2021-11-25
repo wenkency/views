@@ -247,18 +247,19 @@
     </declare-styleable>
 
     <declare-styleable name="BannerView">
-        <attr name="point_style" format="enum">
-            <enum name="circle" value="0" />
-            <enum name="point" value="1" />
-        </attr>
         <!--点的宽高-->
         <attr name="point_width" format="dimension" />
         <attr name="point_height" format="dimension" />
+        <!--选中点的宽高-->
+        <attr name="point_select_width" format="dimension" />
+        <attr name="point_select_height" format="dimension" />
         <!--点的颜色选中和未选中-->
         <attr name="point_color_selected" format="color|reference" />
         <attr name="point_color_unselected" format="color|reference" />
-        <!--点的间距-->
+        <!--点与点之间的间距-->
         <attr name="point_distance" format="dimension" />
+        <!--点底部间距-->
+        <attr name="point_bottom_distance" format="dimension" />
         <!--点的圆角-->
         <attr name="point_radius" format="dimension" />
         <!--点的位置-->
