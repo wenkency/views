@@ -1,11 +1,9 @@
 package cn.carhouse.viewsample;
 
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -21,7 +19,7 @@ import cn.carhouse.views.adapter.XCommAdapter;
 import cn.carhouse.views.adapter.XViewHolder;
 import cn.carhouse.views.tab.XTabLayout;
 
-public class MainActivity extends AppCompatActivity {
+public class XTabActivity extends AppCompatActivity {
 
     private XCommAdapter<String> tabCommAdapter;
 
@@ -33,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         XTabLayout tabLayout = findViewById(R.id.tab_layout);
         ViewPager viewPager = findViewById(R.id.view_pager);
         final List<String> data = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 10; i++) {
             data.add("");
         }
         viewPager.setAdapter(new XQuickPagerAdapter<String>(data, R.layout.item_view_pager, false) {
@@ -47,12 +45,12 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void convert(XViewHolder holder, String item, int position) {
                 holder.setText(R.id.tv, "TabTab" + position);
-                String url = "https://img.car-house.cn/Upload/activity/20200226/TZ5izRtnAzWGHSYKWeBBx6yhPFR62aX2.png";
+                String url = "http://lmg.jj20.com/up/allimg/tp05/19100209401614Q-0-lp.jpg";
                 if (position % 3 == 1) {
-                    url = "https://img.car-house.cn/Upload/activity/20200219/EEAmKbASEh3T3ECXFwT8D2e8m56BGhBe.jpg";
+                    url = "http://lmg.jj20.com/up/allimg/tp01/1ZZQ20QJS6-0-lp.jpg";
                 }
                 if (position % 3 == 2) {
-                    url = "https://img.car-house.cn/Upload/activity/20200304/sKFHyzZwTPBMzbjGyFTzMKsyYQEAZF6h.jpg";
+                    url = "https://img4.orsoon.com:8901/pic/201912/09110428_45fbbfb018.png";
                 }
                 holder.displayImage(R.id.iv_icon, url);
             }
@@ -85,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setOnItemClickListener(new XTabLayout.OnItemClickListener() {
             @Override
             public void onItemClick(int position, View item) {
-                Toast.makeText(MainActivity.this, "position:" + position, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(XTabActivity.this, "position:" + position, Toast.LENGTH_SHORT).show();
             }
         });
         // 设置默认位置为2下标，也就是3

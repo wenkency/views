@@ -88,6 +88,15 @@
     <declare-styleable name="XEditLayout">
         <attr name="edit_left_icon" format="reference" />
         <attr name="edit_left_width" format="dimension" />
+
+        <attr name="edit_left_text" format="string" />
+        <attr name="edit_left_text_size" format="dimension" />
+        <attr name="edit_text_left_margin" format="dimension" />
+        <attr name="edit_text_right_margin" format="dimension" />
+        <attr name="edit_left_text_color" format="color" />
+        <attr name="edit_left_text_lines" format="integer" />
+
+
         <attr name="edit_right_clear_icon" format="reference" />
         <attr name="edit_right_clear_width" format="dimension" />
         <attr name="edit_right_icon" format="reference" />

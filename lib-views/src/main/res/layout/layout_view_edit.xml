@@ -15,6 +15,20 @@
         app:layout_constraintRight_toLeftOf="@id/et_content"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/tvLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:lines="1"
+        android:textColor="#333333"
+        android:textSize="16dp"
+        app:layout_constraintLeft_toRightOf="@id/iv_left_icon"
+        app:layout_constraintRight_toLeftOf="@id/et_content"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/et_content"
         android:layout_width="0dp"
@@ -24,7 +38,7 @@
         android:lines="1"
         android:textColor="#333333"
         android:textSize="16dp"
-        app:layout_constraintLeft_toRightOf="@id/iv_left_icon"
+        app:layout_constraintLeft_toRightOf="@id/tvLeft"
         app:layout_constraintRight_toLeftOf="@id/iv_right_clear_icon"
         app:layout_constraintTop_toTopOf="parent" />
 

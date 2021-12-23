@@ -141,6 +141,7 @@ public class XTextLayout extends FrameLayout {
 
     public final void setLeftText(String text) {
         if (TextUtils.isEmpty(text)) {
+            mTvLeft.setText("");
             return;
         }
         mTvLeft.setText(text);

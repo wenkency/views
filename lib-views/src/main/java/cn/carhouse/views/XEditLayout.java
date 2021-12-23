@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.text.Editable;
 import android.text.InputType;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -22,6 +24,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 public class XEditLayout extends ConstraintLayout implements TextWatcher, View.OnFocusChangeListener {
     public static int CLEAR_ICON = R.drawable.x_edit_clear_icon;
     private ImageView mIvLeftIcon, mIvRightClearIcon, mIvRightIcon, mIvRightTwoIcon;
+    private TextView mTvLeft;
     private EditText mEtContent;
     private View mViewLine;
     private int mLeftIcon, mLeftWidth;
@@ -35,6 +38,8 @@ public class XEditLayout extends ConstraintLayout implements TextWatcher, View.O
     private int mLineSize, mLineColor, mLineFocusColor;
     private int inputType;
     private View.OnFocusChangeListener onFocusChangeListener;
+    private String mLeftText;
+    private int mLeftTextColor, mLeftTextSize, mTextLeftTextLines, mTextLeftMargin, mTextRightMargin;
 
     public XEditLayout(Context context) {
         this(context, null);
@@ -57,6 +62,14 @@ public class XEditLayout extends ConstraintLayout implements TextWatcher, View.O
     private void initAttributes(Context context, AttributeSet attrs) {
 
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.XEditLayout);
+
+        mLeftText = array.getString(R.styleable.XEditLayout_edit_left_text);
+        mLeftTextColor = array.getColor(R.styleable.XEditLayout_edit_left_text_color, Color.parseColor("#333333"));
+        mLeftTextSize = array.getDimensionPixelSize(R.styleable.XEditLayout_edit_left_text_size, dp2px(16));
+        mTextLeftTextLines = array.getInt(R.styleable.XEditLayout_edit_left_text_lines, 1);
+        mTextLeftMargin = array.getDimensionPixelSize(R.styleable.XEditLayout_edit_text_left_margin, 0);
+        mTextRightMargin = array.getDimensionPixelSize(R.styleable.XEditLayout_edit_text_right_margin, 0);
+
         mLeftIcon = array.getResourceId(R.styleable.XEditLayout_edit_left_icon, 0);
         mLeftWidth = (int) array.getDimension(R.styleable.XEditLayout_edit_left_width, 0);
         mRightClearIcon = array.getResourceId(R.styleable.XEditLayout_edit_right_clear_icon, CLEAR_ICON);
@@ -80,6 +93,7 @@ public class XEditLayout extends ConstraintLayout implements TextWatcher, View.O
     }
 
     private void initViews() {
+        mTvLeft = findViewById(R.id.tvLeft);
         mIvLeftIcon = findViewById(R.id.iv_left_icon);
         mIvRightClearIcon = findViewById(R.id.iv_right_clear_icon);
         mIvRightIcon = findViewById(R.id.iv_right_icon);
@@ -88,6 +102,21 @@ public class XEditLayout extends ConstraintLayout implements TextWatcher, View.O
         mViewLine = findViewById(R.id.v_line);
         mEtContent.addTextChangedListener(this);
         mEtContent.setOnFocusChangeListener(this);
+
+        if (mLeftTextSize > 0) {
+            mTvLeft.setTextSize(TypedValue.COMPLEX_UNIT_PX, mLeftTextSize);
+        }
+        mTvLeft.setTextColor(mLeftTextColor);
+        mTvLeft.setLines(mTextLeftTextLines);
+        if (mTextLeftMargin > 0 || mTextRightMargin > 0) {
+            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) mTvLeft.getLayoutParams();
+            params.leftMargin = mTextLeftMargin;
+            params.rightMargin = mTextRightMargin;
+            mTvLeft.setLayoutParams(params);
+        }
+        setLeftText(mLeftText);
+
+
         // 1. 重新设置左边Icon宽度
         if (mLeftWidth > 0) {
             resetView(mIvLeftIcon, mLeftWidth);
@@ -137,6 +166,26 @@ public class XEditLayout extends ConstraintLayout implements TextWatcher, View.O
         setLineVisible(mLineVisible);
         setLineSize(mLineSize);
         setLineColor(mLineColor);
+    }
+
+    public final void setLeftText(String text) {
+        if (TextUtils.isEmpty(text)) {
+            mTvLeft.setText("");
+            return;
+        }
+        mTvLeft.setText(text);
+    }
+
+    public final void setLeftTextColor(int color) {
+        if (color != 0) {
+            mTvLeft.setTextColor(color);
+        }
+    }
+
+    public final void setLeftTextSize(int size) {
+        if (size > 0) {
+            mTvLeft.setTextSize(TypedValue.COMPLEX_UNIT_DIP, size);
+        }
     }
 
     public final void setLineVisible(boolean visible) {
@@ -342,5 +391,12 @@ public class XEditLayout extends ConstraintLayout implements TextWatcher, View.O
     @Override
     public void setOnFocusChangeListener(OnFocusChangeListener onFocusChangeListener) {
         this.onFocusChangeListener = onFocusChangeListener;
+    }
+
+    /**
+     * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
+     */
+    public int dp2px(float value) {
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, getResources().getDisplayMetrics());
     }
 }

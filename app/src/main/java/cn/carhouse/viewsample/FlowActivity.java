@@ -23,7 +23,7 @@ public class FlowActivity extends AppCompatActivity {
         setContentView(R.layout.activity_flow);
         final XFlowLayout tagLayout = findViewById(R.id.tag_layout);
         final List<String> data = new ArrayList<>();
-        for (int i = 0; i < 25; i++) {
+        for (int i = 0; i < 15; i++) {
             data.add("itemitem" + i);
         }
         adapter = new XCommAdapter<String>(this, data, R.layout.item_flow_layout) {
@@ -37,6 +37,6 @@ public class FlowActivity extends AppCompatActivity {
     }
 
     public void add(View view) {
-        adapter.add(2,"item" + adapter.getCount());
+        adapter.add("item" + adapter.getCount());
     }
 }

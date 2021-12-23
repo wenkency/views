@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".BannerActivity"
+            android:name=".TestActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,6 +22,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+
+        <activity
+            android:name=".BannerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".EditActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FlowActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TextActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".XTabActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".stick.StickActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

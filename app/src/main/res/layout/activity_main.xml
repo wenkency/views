@@ -5,13 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".XTabActivity">
 
     <cn.carhouse.views.tab.XTabLayout
         android:layout_gravity="center_horizontal"
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="80dp"
+        app:tabIsScroll="true"
         android:background="#45124545" />
 
     <androidx.viewpager.widget.ViewPager
