@@ -48,7 +48,7 @@ public class TestActivity extends AppCompatActivity {
         recyclerView.setAdapter(new XQuickAdapter<Class>(this, data, R.layout.item_activity_test) {
             @Override
             protected void convert(XQuickViewHolder holder, Class item, int position) {
-                holder.setText(R.id.btn_text,item.getSimpleName());
+                holder.setText(R.id.btn_text,item.getSimpleName().replace("Activity",""));
                 holder.setOnClickListener(R.id.btn_text, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
