@@ -2,6 +2,7 @@ package cn.carhouse.viewsample;
 
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -70,9 +71,9 @@ public class XTabActivity extends AppCompatActivity {
                 // 这里可以创建自已的View
                 ImageView view = new ImageView(parent.getContext());
                 // 这里可以设置自己的宽高：动态宽高（适配屏幕的）
-                view.setLayoutParams(new ViewGroup.LayoutParams(100,30));
+                view.setLayoutParams(new ViewGroup.LayoutParams(100, 30));
                 // 设置图片
-                view.setImageBitmap(BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher));
+                view.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
                 return view;
             }
         };
