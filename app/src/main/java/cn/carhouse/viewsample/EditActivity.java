@@ -32,12 +32,12 @@ public class EditActivity extends AppCompatActivity {
                 Toast.makeText(EditActivity.this, "two", Toast.LENGTH_SHORT).show();
             }
         });
-        editLayout.setOnRightClick(new View.OnClickListener() {
+        /*editLayout.setOnRightClick(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(EditActivity.this, "one", Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
 
     }
 }
