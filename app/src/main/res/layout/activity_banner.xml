@@ -10,7 +10,9 @@
     <cn.carhouse.views.banner.BannerView
         android:id="@+id/banner_view"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="0dp"
+        android:background="#ff0000"
+        app:radio_width="1.6"
         app:point_bottom_distance="6dp"
         app:point_color_unselected="@android:color/white"
         app:point_distance="5dp"

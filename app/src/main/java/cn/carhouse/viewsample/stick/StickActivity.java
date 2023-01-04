@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,7 @@ import cn.carhouse.viewsample.R;
 public class StickActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private StickAdapter mAdapter;
-    private GridLayoutManager mLayoutManager;
+    private StaggeredGridLayoutManager mLayoutManager;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class StickActivity extends AppCompatActivity {
         mAdapter = new StickAdapter(this);
         // 设置粘附的ViewID，要和StickFrameLayout里面的那个ID一样
         mAdapter.setStickViewId(R.id.stick_view_position);
-        mLayoutManager = new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
+        mLayoutManager = new StaggeredGridLayoutManager(5, GridLayoutManager.VERTICAL);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
         // 模拟Tab条目点击事件
@@ -94,6 +95,9 @@ public class StickActivity extends AppCompatActivity {
         // 假设这个是粘附在顶的View，位置是4 position 是3
         // 对应Adapter里面getStickPosition 设置为3
         data.add(new StickBean(3));
+        // 类型5
+        data.add(new StickBean(5));
+
         for (int i = 0; i < 100; i++) {
             data.add(new StickBean(4));
         }

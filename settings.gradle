@@ -1,2 +1,2 @@
 include ':app', ':lib-views'
-rootProject.name='ViewSample'
+rootProject.name='views'

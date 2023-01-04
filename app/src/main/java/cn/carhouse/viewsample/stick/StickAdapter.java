@@ -2,6 +2,7 @@ package cn.carhouse.viewsample.stick;
 
 import android.app.Activity;
 import android.view.View;
+import android.view.ViewGroup;
 
 import cn.carhouse.adapter.XQuickAdapter;
 import cn.carhouse.adapter.XQuickSupport;
@@ -35,6 +36,8 @@ public class StickAdapter extends XQuickAdapter<StickBean> implements IStick {
                     return R.layout.item_type3;
                 case 4:
                     return R.layout.item_type4;
+                case 5:
+                    return R.layout.item_type5;
             }
             return R.layout.item_empty;
         }
@@ -47,6 +50,9 @@ public class StickAdapter extends XQuickAdapter<StickBean> implements IStick {
 
         @Override
         public boolean isSpan(StickBean item) {
+            if (item.getItemViewType() == 4 || item.getItemViewType() == 5) {
+                return false;
+            }
             return true;
         }
 
@@ -54,8 +60,10 @@ public class StickAdapter extends XQuickAdapter<StickBean> implements IStick {
         public int getSpanSize(StickBean item, int position) {
             if (item.getItemViewType() == 4) {
                 return 1;
+            } else if (item.getItemViewType() == 5) {
+                return 1;
             }
-            return 3;
+            return 5;
         }
     };
 
@@ -64,8 +72,10 @@ public class StickAdapter extends XQuickAdapter<StickBean> implements IStick {
         setMultiSupport(support);
     }
 
+
     @Override
     protected void convert(XQuickViewHolder holder, StickBean item, int position) {
+
         // 根据ViewType做相应的操作
         switch (item.getItemViewType()) {
             case 3:

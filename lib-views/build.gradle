@@ -1,14 +1,15 @@
-apply plugin: 'com.android.library'
-
-// 远程仓库
-apply plugin: 'com.github.dcendents.android-maven'
+plugins {
+    id 'com.android.library'
+    // 远程仓库
+    id 'maven-publish'
+}
 group = 'com.github.wenkency'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 32
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 30
+        targetSdkVersion 32
     }
 
     buildTypes {
@@ -23,10 +24,10 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     /*循环收入包*/
-    compileOnly "androidx.appcompat:appcompat:1.1.0"
+    compileOnly "androidx.appcompat:appcompat:1.5.1"
     compileOnly "androidx.recyclerview:recyclerview:1.2.1"
     compileOnly "com.github.wenkency:imageloader:2.7.0"
     compileOnly "com.github.wenkency:quickadapter:2.0.0"
-    compileOnly "androidx.constraintlayout:constraintlayout:2.1.0"
+    compileOnly "androidx.constraintlayout:constraintlayout:2.1.4"
 
 }

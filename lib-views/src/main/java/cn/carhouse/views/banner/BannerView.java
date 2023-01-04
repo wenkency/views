@@ -146,6 +146,33 @@ public class BannerView<T> extends RelativeLayout {
         mBannerPoints.setGravity(getPointGravity());
     }
 
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int widthSpec = widthMeasureSpec;
+        int heightSpec = heightMeasureSpec;
+        // 设置图片的宽高比-- mWidthRadio = 9  mHeightRadio = 5   9/5
+        if (mWidthRadio != 0 && mHeightRadio != 0) {
+            int width = MeasureSpec.getSize(widthMeasureSpec);
+            int height = (int) (width * mHeightRadio / mWidthRadio + 0.5f);
+            widthSpec = MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY);
+            heightSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
+        } else if (mWidthRadio != 0) {
+            // mWidthRadio = 1.8 = 9/5
+            int width = MeasureSpec.getSize(widthMeasureSpec);
+            int height = (int) (width / mWidthRadio + 0.5f);
+            widthSpec = MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY);
+            heightSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
+        } else if (mHeightRadio != 0) {
+            // mHeightRadio = 1.8 = 9/5
+            int height = MeasureSpec.getSize(heightMeasureSpec);
+            int width = (int) (height * mHeightRadio + 0.5f);
+            widthSpec = MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY);
+            heightSpec = MeasureSpec.makeMeasureSpec(height, MeasureSpec.EXACTLY);
+        }
+        super.onMeasure(widthSpec, heightSpec);
+
+    }
+
     public void setAdapter(BannerPagerAdapter<T> adapter) {
         setAdapter(adapter, true);
     }
@@ -197,12 +224,7 @@ public class BannerView<T> extends RelativeLayout {
                 pageSelected(position % mAdapter.getDataSize());
             }
         });
-        // 设置图片的宽高比
-        if (mWidthRadio != 0 && mHeightRadio != 0) {
-            int measuredWidth = getScreenWidth();
-            int height = (int) (measuredWidth * mHeightRadio / mWidthRadio + 0.5f);
-            getLayoutParams().height = height;
-        }
+
         if (isLoop) {
             // 向前面移动100
             mBannerPager.setCurrentItem(mAdapter.getDataSize() * 100, false);
@@ -210,6 +232,7 @@ public class BannerView<T> extends RelativeLayout {
         // 开启轮播
         startRoll();
     }
+
 
     public void startRoll() {
         if (mBannerPager != null) {
