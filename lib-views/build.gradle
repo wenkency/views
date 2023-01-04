@@ -4,6 +4,22 @@ plugins {
     id 'maven-publish'
 }
 group = 'com.github.wenkency'
+def libVersion = "2.9.1"
+group = 'com.github.wenkency'
+version = libVersion
+afterEvaluate {
+    publishing {
+        publications {
+            // Creates a Maven publication called "release".
+            release(MavenPublication) {
+                from components.release
+                groupId = 'com.github.wenkency'
+                artifactId = 'android-mvvm'
+                version = libVersion
+            }
+        }
+    }
+}
 
 android {
     compileSdkVersion 32
