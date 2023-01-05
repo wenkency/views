@@ -4,7 +4,7 @@ plugins {
     id 'maven-publish'
 }
 
-def libVersionName = '2.9.5'
+def libVersionName = '2.9.6'
 group = 'com.github.wenkency'
 version = libVersionName
 
@@ -15,7 +15,7 @@ afterEvaluate {
             release(MavenPublication) {
                 from components.release
                 groupId = 'com.github.wenkency'
-                artifactId = 'android-views'
+                artifactId = 'lib-views'
                 version = libVersionName
             }
         }
