@@ -3,9 +3,11 @@ plugins {
     // 远程仓库
     id 'maven-publish'
 }
-def libVersion = "2.9.4"
+
+def libVersionName = '2.9.5'
 group = 'com.github.wenkency'
-version = libVersion
+version = libVersionName
+
 afterEvaluate {
     publishing {
         publications {
@@ -13,8 +15,8 @@ afterEvaluate {
             release(MavenPublication) {
                 from components.release
                 groupId = 'com.github.wenkency'
-                artifactId = 'views'
-                version = libVersion
+                artifactId = 'android-views'
+                version = libVersionName
             }
         }
     }
@@ -25,7 +27,6 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 32
-        versionName libVersion
     }
 
     buildTypes {
