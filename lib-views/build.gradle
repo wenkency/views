@@ -4,7 +4,7 @@ plugins {
     id 'maven-publish'
 }
 
-def libVersionName = '2.9.6'
+def libVersionName = '2.9.7'
 group = 'com.github.wenkency'
 version = libVersionName
 

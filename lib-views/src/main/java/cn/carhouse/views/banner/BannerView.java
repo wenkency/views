@@ -52,6 +52,12 @@ public class BannerView<T> extends RelativeLayout {
     private int mPointGravity = 0;// 左：-1  中：0   右：1
     private float mWidthRadio, mHeightRadio;// 图片的宽高比
     private OnPageSelectedListener mOnPageSelectedListener;
+    // 数据改变监听
+    private DataSetObserver dataSetObserver;
+    // 页面改变监听
+    private ViewPager.SimpleOnPageChangeListener changeListener;
+    // 是否自动轮播
+    private boolean isLoop;
     /**
      * 是否显示点
      */
@@ -178,9 +184,6 @@ public class BannerView<T> extends RelativeLayout {
         setAdapter(adapter, true);
     }
 
-    private DataSetObserver dataSetObserver;
-    private ViewPager.SimpleOnPageChangeListener changeListener;
-    private boolean isLoop;
 
     /**
      * 设置适配器
@@ -188,18 +191,27 @@ public class BannerView<T> extends RelativeLayout {
      * @param adapter
      */
     public void setAdapter(BannerPagerAdapter<T> adapter, boolean isLoop) {
+        if (mAdapter != null) {
+            // 反注册数据变化监听
+            if (dataSetObserver != null) {
+                mAdapter.unregisterDataSetObserver(dataSetObserver);
+            }
+            // 移除页面改变监听
+            if (changeListener != null) {
+                mBannerPager.removeOnPageChangeListener(changeListener);
+            }
+        }
+        mPosition = -1;
         mAdapter = adapter;
         this.isLoop = isLoop;
         mBannerPager.setAdapter(adapter);
         // 设置数据发生改变监听
-        if (dataSetObserver != null) {
-            mAdapter.registerDataSetObserver(dataSetObserver);
-        }
         if (dataSetObserver == null) {
             dataSetObserver = new DataSetObserver() {
                 @Override
                 public void onChanged() {
                     setPoints();
+                    startRoll();
                 }
             };
         }
@@ -209,9 +221,7 @@ public class BannerView<T> extends RelativeLayout {
 
         pageSelected(0);
 
-        if (changeListener != null) {
-            mBannerPager.removeOnPageChangeListener(changeListener);
-        }
+
         if (changeListener == null) {
             changeListener = new ViewPager.SimpleOnPageChangeListener() {
                 @Override
@@ -368,6 +378,13 @@ public class BannerView<T> extends RelativeLayout {
      */
     public ViewPager getViewPager() {
         return mBannerPager;
+    }
+
+    /**
+     * 获取ViewPager 的Adapter
+     */
+    public BannerPagerAdapter<T> getAdapter() {
+        return mAdapter;
     }
 
     public void setOnPageSelectedListener(OnPageSelectedListener onPageSelectedListener) {
