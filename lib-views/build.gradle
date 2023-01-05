@@ -3,7 +3,7 @@ plugins {
     // 远程仓库
     id 'maven-publish'
 }
-def libVersion = "2.9.3"
+def libVersion = "2.9.4"
 group = 'com.github.wenkency'
 version = libVersion
 afterEvaluate {
@@ -25,6 +25,7 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 32
+        versionName libVersion
     }
 
     buildTypes {
