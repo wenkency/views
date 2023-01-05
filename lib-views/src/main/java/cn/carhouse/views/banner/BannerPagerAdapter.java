@@ -22,12 +22,20 @@ public abstract class BannerPagerAdapter<T> extends XQuickPagerAdapter<T> {
         super(data, layoutId);
     }
 
+    public BannerPagerAdapter(int layoutId) {
+        super(null, layoutId);
+    }
+
     public void setLooper(boolean isLooper) {
         this.isLooper = isLooper;
     }
 
     public int getDataSize() {
         return getData().size();
+    }
+
+    public boolean isLooper() {
+        return this.isLooper;
     }
 
     public String getBannerDesc(int position) {

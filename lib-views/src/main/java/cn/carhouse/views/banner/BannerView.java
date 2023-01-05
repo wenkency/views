@@ -2,6 +2,7 @@ package cn.carhouse.views.banner;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.database.DataSetObserver;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -177,33 +178,66 @@ public class BannerView<T> extends RelativeLayout {
         setAdapter(adapter, true);
     }
 
+    private DataSetObserver dataSetObserver;
+    private ViewPager.SimpleOnPageChangeListener changeListener;
+    private boolean isLoop;
+
     /**
      * 设置适配器
      *
      * @param adapter
      */
     public void setAdapter(BannerPagerAdapter<T> adapter, boolean isLoop) {
-        mBannerPoints.removeAllViews();
-
-        int size = adapter.getDataSize();
-        // 当数据只有一条的时候点不出来
-        if (size <= 1) {
-            mBannerPoints.setVisibility(INVISIBLE);
-            // 不轮播
-            setLoop(false);
-        } else {
-
-            if (isShowPoint) {
-                mBannerPoints.setVisibility(VISIBLE);
-            } else {
-                mBannerPoints.setVisibility(INVISIBLE);
-            }
-            setLoop(isLoop);
-        }
-
         mAdapter = adapter;
+        this.isLoop = isLoop;
         mBannerPager.setAdapter(adapter);
+        // 设置数据发生改变监听
+        if (dataSetObserver != null) {
+            mAdapter.registerDataSetObserver(dataSetObserver);
+        }
+        if (dataSetObserver == null) {
+            dataSetObserver = new DataSetObserver() {
+                @Override
+                public void onChanged() {
+                    setPoints();
+                }
+            };
+        }
+        mAdapter.registerDataSetObserver(dataSetObserver);
 
+        setPoints();
+
+        pageSelected(0);
+
+        if (changeListener != null) {
+            mBannerPager.removeOnPageChangeListener(changeListener);
+        }
+        if (changeListener == null) {
+            changeListener = new ViewPager.SimpleOnPageChangeListener() {
+                @Override
+                public void onPageSelected(int position) {
+                    // 改变选中的状态
+                    pageSelected(position % mAdapter.getDataSize());
+                }
+            };
+        }
+        mBannerPager.addOnPageChangeListener(changeListener);
+
+        // 开启轮播
+        startRoll();
+    }
+
+    // 设置点
+    private void setPoints() {
+        setLoop(isLoop);
+        // 点的控制
+        if (isShowPoint) {
+            mBannerPoints.setVisibility(VISIBLE);
+        } else {
+            mBannerPoints.setVisibility(INVISIBLE);
+        }
+        mBannerPoints.removeAllViews();
+        int size = mAdapter.getDataSize();
         // 初始化点
         for (int i = 0; i < size; i++) {
             BannerPointView pointView = new BannerPointView(getContext());
@@ -216,21 +250,15 @@ public class BannerView<T> extends RelativeLayout {
                 pointView.setColorAndRadius(mPointUnSelectedColor, mRadius);
             }
         }
-        pageSelected(0);
-        mBannerPager.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
-            @Override
-            public void onPageSelected(int position) {
-                // 改变选中的状态
-                pageSelected(position % mAdapter.getDataSize());
-            }
-        });
-
-        if (isLoop) {
+        if (size > 1 && mAdapter.isLooper()) {
             // 向前面移动100
             mBannerPager.setCurrentItem(mAdapter.getDataSize() * 100, false);
         }
-        // 开启轮播
-        startRoll();
+        // 如果只有一个点就不轮播了
+        if (size == 1) {
+            mBannerPoints.setVisibility(INVISIBLE);
+            setLoop(false);
+        }
     }
 
 
@@ -238,14 +266,12 @@ public class BannerView<T> extends RelativeLayout {
         if (mBannerPager != null) {
             mBannerPager.startRoll();
         }
-
     }
 
     public void stopRoll() {
         if (mBannerPager != null) {
             mBannerPager.stopRoll();
         }
-
     }
 
     /**
@@ -308,7 +334,6 @@ public class BannerView<T> extends RelativeLayout {
         if (mBannerPager != null) {
             mBannerPager.setLoop(isLoop);
         }
-
     }
 
     /**

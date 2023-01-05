@@ -3,8 +3,7 @@ plugins {
     // 远程仓库
     id 'maven-publish'
 }
-group = 'com.github.wenkency'
-def libVersion = "2.9.1"
+def libVersion = "2.9.2"
 group = 'com.github.wenkency'
 version = libVersion
 afterEvaluate {
@@ -14,7 +13,7 @@ afterEvaluate {
             release(MavenPublication) {
                 from components.release
                 groupId = 'com.github.wenkency'
-                artifactId = 'android-mvvm'
+                artifactId = 'android-views'
                 version = libVersion
             }
         }
