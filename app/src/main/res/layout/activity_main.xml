@@ -8,12 +8,13 @@
     tools:context=".XTabActivity">
 
     <cn.carhouse.views.tab.XTabLayout
-        android:layout_gravity="center_horizontal"
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
         android:layout_height="80dp"
-        app:tabIsScroll="true"
-        android:background="#45124545" />
+        android:layout_gravity="center_horizontal"
+        android:background="#45124545"
+        app:lineEqual="true"
+        app:tabIsScroll="true" />
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"

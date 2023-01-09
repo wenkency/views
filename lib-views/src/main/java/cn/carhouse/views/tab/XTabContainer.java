@@ -181,7 +181,7 @@ class XTabContainer extends FrameLayout {
         int measuredWidth = getItemWidth(position);
         // 与条目一样宽
         if (mTabCount == 0 && mLineEqual) {
-            mLineLayoutParams.width = measuredWidth;
+            mLineLayoutParams.width = measuredWidth - child.getPaddingLeft() - child.getPaddingRight();
         }
 
         int leftMargin = child.getLeft() + offset + (measuredWidth - mLineLayoutParams.width) / 2;
