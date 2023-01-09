@@ -1,7 +1,9 @@
 package cn.carhouse.viewsample;
 
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.printservice.PrintService;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +47,7 @@ public class XTabActivity extends AppCompatActivity {
         tabCommAdapter = new XCommAdapter<String>(this, data, R.layout.item_tab_layout) {
             @Override
             public void convert(XViewHolder holder, String item, int position) {
-                holder.setText(R.id.tv, "TabTab" + position);
+                holder.setText(R.id.tv, "Tab" + (5 * position));
                 String url = "http://lmg.jj20.com/up/allimg/tp05/19100209401614Q-0-lp.jpg";
                 if (position % 3 == 1) {
                     url = "http://lmg.jj20.com/up/allimg/tp01/1ZZQ20QJS6-0-lp.jpg";
@@ -68,12 +70,17 @@ public class XTabActivity extends AppCompatActivity {
 
             @Override
             public View getTabBottomLineView(ViewGroup parent) {
-                // 这里可以创建自已的View
+
+                /*// 这里可以创建自已的View
                 ImageView view = new ImageView(parent.getContext());
                 // 这里可以设置自己的宽高：动态宽高（适配屏幕的）
                 view.setLayoutParams(new ViewGroup.LayoutParams(100, 30));
                 // 设置图片
-                view.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
+                view.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));*/
+
+                View view = new View(parent.getContext());
+                view.setBackgroundColor(Color.parseColor("#ff0000"));
+
                 return view;
             }
         };

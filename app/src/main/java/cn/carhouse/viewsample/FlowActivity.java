@@ -26,13 +26,15 @@ public class FlowActivity extends AppCompatActivity {
         for (int i = 0; i < 15; i++) {
             data.add("itemitem" + i);
         }
-        adapter = new XCommAdapter<String>(this, data, R.layout.item_flow_layout) {
+        adapter = new XCommAdapter<String>(this, R.layout.item_flow_layout) {
             @Override
             public void convert(XViewHolder holder, final String item, final int position) {
                 holder.setText(R.id.tv, item);
             }
         };
         tagLayout.setAdapter(adapter);
+
+        adapter.replaceAll(data);
 
     }
 

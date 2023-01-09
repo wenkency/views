@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +23,7 @@ public abstract class XCommAdapter<T> extends XBaseAdapter {
     protected LayoutInflater mInflater;
 
 
-    public XCommAdapter(Context context, List<T> data, int layoutId) {
+    public XCommAdapter(@NonNull Context context, List<T> data, int layoutId) {
         this.mContext = context;
         this.mData = data == null ? new ArrayList<T>() : new ArrayList<T>(data);
         this.mLayoutId = layoutId;
@@ -45,7 +47,7 @@ public abstract class XCommAdapter<T> extends XBaseAdapter {
         return view;
     }
 
-    public abstract void convert(XViewHolder holder, T item, int position);
+    public abstract void convert(@NonNull XViewHolder holder, @NonNull T item, int position);
 
     //==========================================数据相关================================================
     public void add(T elem) {

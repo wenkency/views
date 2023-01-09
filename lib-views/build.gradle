@@ -4,7 +4,7 @@ plugins {
     id 'maven-publish'
 }
 
-def libVersionName = '2.9.8'
+def libVersionName = '2.9.9'
 group = 'com.github.wenkency'
 version = libVersionName
 
@@ -45,10 +45,10 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     /*循环收入包*/
-    compileOnly "androidx.appcompat:appcompat:1.2.0"
+    implementation "androidx.appcompat:appcompat:1.5.1"
+    implementation "androidx.constraintlayout:constraintlayout:2.1.4"
     compileOnly "androidx.recyclerview:recyclerview:1.2.1"
     compileOnly "com.github.wenkency:imageloader:2.7.0"
     compileOnly "com.github.wenkency:quickadapter:2.0.0"
-    implementation "androidx.constraintlayout:constraintlayout:2.1.4"
 
 }
