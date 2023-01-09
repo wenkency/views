@@ -141,7 +141,7 @@ class XTabContainer extends FrameLayout {
         // 添加线
         addView(lineView, getLineLayoutParams());
         // 设置线的偏移
-        updateLine(0, 0);
+        //updateLine(0, 0);
     }
 
     private LayoutParams getLineLayoutParams() {
@@ -167,6 +167,24 @@ class XTabContainer extends FrameLayout {
         return mLineLayoutParams;
     }
 
+    public void resetLineWidth(int position) {
+        if (mLineView == null) {
+            return;
+        }
+        View child = mLLTabContainer.getChildAt(position);
+        if (child == null) {
+            return;
+        }
+        int measuredWidth = getItemWidth(position);
+        // 与条目一样宽
+        if (mTabCount == 0 && mLineEqual) {
+            mLineLayoutParams.width = measuredWidth
+                    - child.getPaddingLeft()
+                    - child.getPaddingRight();
+        }
+
+    }
+
     /**
      * 更新线的位置
      */
@@ -179,10 +197,6 @@ class XTabContainer extends FrameLayout {
             return;
         }
         int measuredWidth = getItemWidth(position);
-        // 与条目一样宽
-        if (mTabCount == 0 && mLineEqual) {
-            mLineLayoutParams.width = measuredWidth - child.getPaddingLeft() - child.getPaddingRight();
-        }
 
         int leftMargin = child.getLeft() + offset + (measuredWidth - mLineLayoutParams.width) / 2;
 

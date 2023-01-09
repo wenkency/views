@@ -95,7 +95,7 @@ public class XTabActivity extends AppCompatActivity {
             }
         });
         // 设置默认位置为2下标，也就是3
-        tabLayout.setAdapter(tabCommAdapter, viewPager, 0);
+        tabLayout.setAdapter(tabCommAdapter, viewPager,0);
 
     }
 }

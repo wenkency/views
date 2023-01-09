@@ -114,7 +114,6 @@ public class XTabLayout extends HorizontalScrollView implements ViewPager.OnPage
         registerAdapter();
 
         XTabLayout.this.notifyDataSetChanged();
-
     }
 
     @Override
@@ -206,7 +205,7 @@ public class XTabLayout extends HorizontalScrollView implements ViewPager.OnPage
     /**
      * 设置当前位置：没点击回调
      *
-     * @param position  :从0开始
+     * @param position      :从0开始
      * @param tabScrollAnim :ViewPager滚动要不要动画
      */
     public void setCurrent(final int position, final boolean tabScrollAnim) {
@@ -247,7 +246,10 @@ public class XTabLayout extends HorizontalScrollView implements ViewPager.OnPage
             mAdapter.onTabSelected(mTabContainer.getItemView(mPosition), mPosition);
         }
 
+        mTabContainer.resetLineWidth(position);
+
         mTabContainer.updateLine(position, 0);
+
 
         smoothScrollTab(position);
     }
@@ -270,7 +272,9 @@ public class XTabLayout extends HorizontalScrollView implements ViewPager.OnPage
      * 用户点击时，不断滚动到当前的位置
      */
     private void smoothScrollTab(int position) {
-        if (mTabContainer.getItemView(position) == null) {
+
+        View itemView = mTabContainer.getItemView(position);
+        if (itemView == null) {
             return;
         }
         // Tab如果不滚动
@@ -278,7 +282,7 @@ public class XTabLayout extends HorizontalScrollView implements ViewPager.OnPage
             return;
         }
         // 最终要滚的距离 = 总的滚动距离(item到左边的距离 + item一半宽度) - 控件宽度(就是实际布局里面写的宽度)/2
-        float finalScroll = mTabContainer.getItemView(position).getLeft()
+        float finalScroll = itemView.getLeft()
                 + mTabContainer.getItemWidth(position) / 2f - getWidth() / 2f;
         smoothScrollTo((int) finalScroll, 0);
     }
