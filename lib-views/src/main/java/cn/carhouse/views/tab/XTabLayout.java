@@ -187,7 +187,7 @@ public class XTabLayout extends HorizontalScrollView implements ViewPager.OnPage
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        if (isScroll) {
+        if (mAdapter != null && isScroll) {
             float totalScroll = (positionOffset) * mTabContainer.getItemWidth(position);
             mTabContainer.updateLine(position, (int) totalScroll);
         }

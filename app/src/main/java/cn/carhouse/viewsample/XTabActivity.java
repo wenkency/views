@@ -34,20 +34,24 @@ public class XTabActivity extends AppCompatActivity {
         XTabLayout tabLayout = findViewById(R.id.tab_layout);
         ViewPager viewPager = findViewById(R.id.view_pager);
         final List<String> data = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            data.add("");
-        }
+        data.add("abc");
+        data.add("abdedec");
+        data.add("abdddddddc");
+        data.add("ab");
+        data.add("abasdfasdc");
+        data.add("abcfff");
+        data.add("abcasdfasdfas");
         viewPager.setAdapter(new XQuickPagerAdapter<String>(data, R.layout.item_view_pager, false) {
             @Override
             protected void convert(XQuickViewHolder holder, String data, int position) {
-                holder.setText(R.id.tv, "ViewPager" + position);
+                holder.setText(R.id.tv, "ViewPager " + data + position);
             }
         });
 
         tabCommAdapter = new XCommAdapter<String>(this, data, R.layout.item_tab_layout) {
             @Override
             public void convert(XViewHolder holder, String item, int position) {
-                holder.setText(R.id.tv, "Tab" + (5 * position));
+                holder.setText(R.id.tv, item);
                 String url = "http://lmg.jj20.com/up/allimg/tp05/19100209401614Q-0-lp.jpg";
                 if (position % 3 == 1) {
                     url = "http://lmg.jj20.com/up/allimg/tp01/1ZZQ20QJS6-0-lp.jpg";
@@ -71,15 +75,15 @@ public class XTabActivity extends AppCompatActivity {
             @Override
             public View getTabBottomLineView(ViewGroup parent) {
 
-                /*// 这里可以创建自已的View
+                // 这里可以创建自已的View
                 ImageView view = new ImageView(parent.getContext());
                 // 这里可以设置自己的宽高：动态宽高（适配屏幕的）
-                view.setLayoutParams(new ViewGroup.LayoutParams(100, 30));
+                view.setLayoutParams(new ViewGroup.LayoutParams(80, 80));
                 // 设置图片
-                view.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));*/
+                view.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
 
-                View view = new View(parent.getContext());
-                view.setBackgroundColor(Color.parseColor("#ff0000"));
+               /* View view = new View(parent.getContext());
+                view.setBackgroundColor(Color.parseColor("#ff0000"));*/
 
                 return view;
             }
@@ -95,7 +99,7 @@ public class XTabActivity extends AppCompatActivity {
             }
         });
         // 设置默认位置为2下标，也就是3
-        tabLayout.setAdapter(tabCommAdapter, viewPager,0);
+        tabLayout.setAdapter(tabCommAdapter, viewPager, 0);
 
     }
 }
