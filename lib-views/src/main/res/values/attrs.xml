@@ -58,6 +58,7 @@
     <declare-styleable name="XTextLayout">
         <attr name="textLeftIcon" format="reference" />
         <attr name="textLeftIconWidth" format="dimension" />
+        <attr name="textLeftIconHeight" format="dimension" />
         <attr name="textLeftIconPadding" format="dimension" />
         <attr name="textLeftTextSize" format="dimension" />
         <attr name="textLeftMargin" format="dimension" />
@@ -67,6 +68,7 @@
         <!--右边-->
         <attr name="textRightIcon" format="reference" />
         <attr name="textRightIconWidth" format="dimension" />
+        <attr name="textRightIconHeight" format="dimension" />
         <attr name="textRightIconPadding" format="dimension" />
         <attr name="textRightTextSize" format="dimension" />
         <attr name="textRightMargin" format="dimension" />
@@ -76,6 +78,7 @@
         <!--右边 第二个图片-->
         <attr name="textRightTwoIcon" format="reference" />
         <attr name="textRightIconTwoWidth" format="dimension" />
+        <attr name="textRightIconTwoHeight" format="dimension" />
         <attr name="textRightIconTwoPadding" format="dimension" />
         <!--线-->
         <attr name="textShowLine" format="boolean" />
@@ -88,6 +91,7 @@
     <declare-styleable name="XEditLayout">
         <attr name="edit_left_icon" format="reference" />
         <attr name="edit_left_width" format="dimension" />
+        <attr name="edit_left_height" format="dimension" />
 
         <attr name="edit_left_text" format="string" />
         <attr name="edit_left_text_size" format="dimension" />
@@ -99,10 +103,13 @@
 
         <attr name="edit_right_clear_icon" format="reference" />
         <attr name="edit_right_clear_width" format="dimension" />
+        <attr name="edit_right_clear_height" format="dimension" />
         <attr name="edit_right_icon" format="reference" />
         <attr name="edit_right_width" format="dimension" />
+        <attr name="edit_right_height" format="dimension" />
         <attr name="edit_right_two_icon" format="reference" />
         <attr name="edit_right_two_width" format="dimension" />
+        <attr name="edit_right_two_height" format="dimension" />
         <!--EditText相关-->
         <attr name="editText" format="string" />
         <attr name="edit_hint" format="string" />

@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,7 +21,8 @@ public class XTextLayout extends FrameLayout {
     private TextView mTvLeft, mTvRight;
     private View mViewLine;
     private int mLeftIcon, mRightIcon, mRightTwoIcon;
-    private int mLeftIconWidth, mRightIconWidth, mRightIconTwoWidth;
+    private int mLeftIconWidth, mLeftIconHeight, mRightIconWidth,
+            mRightIconHeight, mRightIconTwoWidth, mRightIconTwoHeight;
     private int mLeftTextColor, mRightTextColor;
     private int mLeftTextSize, mRightTextSize;
     private int mLeftMargin, mRightMargin;
@@ -67,8 +69,11 @@ public class XTextLayout extends FrameLayout {
         mTextLeftTextLines = array.getInt(R.styleable.XTextLayout_textLeftTextLines, 1);
         mRightTextSize = array.getDimensionPixelSize(R.styleable.XTextLayout_textRightTextSize, dp2px(16));
         mLeftIconWidth = array.getDimensionPixelSize(R.styleable.XTextLayout_textLeftIconWidth, LayoutParams.WRAP_CONTENT);
+        mLeftIconHeight = array.getDimensionPixelSize(R.styleable.XTextLayout_textLeftIconHeight, LayoutParams.WRAP_CONTENT);
         mRightIconWidth = array.getDimensionPixelSize(R.styleable.XTextLayout_textRightIconWidth, LayoutParams.WRAP_CONTENT);
+        mRightIconHeight = array.getDimensionPixelSize(R.styleable.XTextLayout_textRightIconHeight, LayoutParams.WRAP_CONTENT);
         mRightIconTwoWidth = array.getDimensionPixelSize(R.styleable.XTextLayout_textRightIconTwoWidth, LayoutParams.WRAP_CONTENT);
+        mRightIconTwoHeight = array.getDimensionPixelSize(R.styleable.XTextLayout_textRightIconTwoHeight, LayoutParams.WRAP_CONTENT);
 
         mLeftMargin = array.getDimensionPixelSize(R.styleable.XTextLayout_textLeftMargin, 0);
         mRightMargin = array.getDimensionPixelSize(R.styleable.XTextLayout_textRightMargin, 0);
@@ -91,6 +96,12 @@ public class XTextLayout extends FrameLayout {
         setLeftIcon(mLeftIcon);
         // 设置图片大小和左边距
         setLeftIconWidthPadding();
+        if (mLeftIconWidth > 0) {
+            setViewWidth(mIvLeft, mLeftIconWidth);
+        }
+        if (mLeftIconWidth > 0) {
+            setViewHeight(mIvLeft, mLeftIconHeight);
+        }
         if (mLeftTextSize > 0) {
             mTvLeft.setTextSize(TypedValue.COMPLEX_UNIT_PX, mLeftTextSize);
         }
@@ -106,6 +117,12 @@ public class XTextLayout extends FrameLayout {
         if (mRightIcon != 0) {
             mIvRight.setImageResource(mRightIcon);
         }
+        if (mRightIconWidth > 0) {
+            setViewWidth(mIvRight, mRightIconWidth);
+        }
+        if (mRightIconHeight > 0) {
+            setViewHeight(mIvRight, mRightIconHeight);
+        }
         setRightIconWidthPadding();
         if (mRightTextSize > 0) {
             mTvRight.setTextSize(TypedValue.COMPLEX_UNIT_PX, mRightTextSize);
@@ -120,6 +137,12 @@ public class XTextLayout extends FrameLayout {
         // 右边第二个图片
         if (mRightTwoIcon != 0) {
             mIvRightTwo.setImageResource(mRightTwoIcon);
+        }
+        if (mRightIconTwoWidth > 0) {
+            setViewWidth(mIvRightTwo, mRightIconTwoWidth);
+        }
+        if (mRightIconTwoHeight > 0) {
+            setViewHeight(mIvRightTwo, mRightIconTwoHeight);
         }
         if (mRightTwoPadding > 0 || mRightIconTwoWidth > 0) {
             LinearLayout.LayoutParams params = (LinearLayout.LayoutParams) mIvRightTwo.getLayoutParams();
@@ -138,6 +161,17 @@ public class XTextLayout extends FrameLayout {
         }
     }
 
+    private void setViewWidth(View view, int width) {
+        ViewGroup.LayoutParams params = view.getLayoutParams();
+        params.width = width;
+        view.setLayoutParams(params);
+    }
+
+    private void setViewHeight(View view, int height) {
+        ViewGroup.LayoutParams params = view.getLayoutParams();
+        params.height = height;
+        view.setLayoutParams(params);
+    }
 
     public final void setLeftText(String text) {
         if (TextUtils.isEmpty(text)) {

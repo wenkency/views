@@ -27,10 +27,10 @@ public class XEditLayout extends ConstraintLayout implements TextWatcher, View.O
     private TextView mTvLeft;
     private EditText mEtContent;
     private View mViewLine;
-    private int mLeftIcon, mLeftWidth;
-    private int mRightClearIcon, mRightClearWidth;
-    private int mRightIcon, mRightWidth;
-    private int mRightTwoIcon, mRightTwoWidth;
+    private int mLeftIcon, mLeftWidth, mLeftHeight;
+    private int mRightClearIcon, mRightClearWidth, mRightClearHeight;
+    private int mRightIcon, mRightWidth, mRightHeight;
+    private int mRightTwoIcon, mRightTwoWidth, mRightTwoHeight;
     private String mText, mHint;
     private int mTextColor, mTextHintColor;
     private float mTextSize;
@@ -71,13 +71,17 @@ public class XEditLayout extends ConstraintLayout implements TextWatcher, View.O
         mTextRightMargin = array.getDimensionPixelSize(R.styleable.XEditLayout_edit_text_right_margin, 0);
 
         mLeftIcon = array.getResourceId(R.styleable.XEditLayout_edit_left_icon, 0);
-        mLeftWidth = (int) array.getDimension(R.styleable.XEditLayout_edit_left_width, 0);
+        mLeftWidth = (int) array.getDimension(R.styleable.XEditLayout_edit_left_width, LayoutParams.WRAP_CONTENT);
+        mLeftHeight = (int) array.getDimension(R.styleable.XEditLayout_edit_left_height, LayoutParams.WRAP_CONTENT);
         mRightClearIcon = array.getResourceId(R.styleable.XEditLayout_edit_right_clear_icon, CLEAR_ICON);
-        mRightClearWidth = (int) array.getDimension(R.styleable.XEditLayout_edit_right_clear_width, dip2px(35));
+        mRightClearWidth = (int) array.getDimension(R.styleable.XEditLayout_edit_right_clear_width, LayoutParams.WRAP_CONTENT);
+        mRightClearHeight = (int) array.getDimension(R.styleable.XEditLayout_edit_right_clear_height, LayoutParams.WRAP_CONTENT);
         mRightIcon = array.getResourceId(R.styleable.XEditLayout_edit_right_icon, 0);
-        mRightWidth = (int) array.getDimension(R.styleable.XEditLayout_edit_right_width, 0);
+        mRightWidth = (int) array.getDimension(R.styleable.XEditLayout_edit_right_width, LayoutParams.WRAP_CONTENT);
+        mRightHeight = (int) array.getDimension(R.styleable.XEditLayout_edit_right_height, LayoutParams.WRAP_CONTENT);
         mRightTwoIcon = array.getResourceId(R.styleable.XEditLayout_edit_right_two_icon, 0);
-        mRightTwoWidth = (int) array.getDimension(R.styleable.XEditLayout_edit_right_two_width, 0);
+        mRightTwoWidth = (int) array.getDimension(R.styleable.XEditLayout_edit_right_two_width, LayoutParams.WRAP_CONTENT);
+        mRightTwoHeight = (int) array.getDimension(R.styleable.XEditLayout_edit_right_two_height, LayoutParams.WRAP_CONTENT);
         mText = array.getString(R.styleable.XEditLayout_editText);
         mHint = array.getString(R.styleable.XEditLayout_edit_hint);
         mTextSize = array.getDimension(R.styleable.XEditLayout_edit_size, dip2px(16));
@@ -119,24 +123,40 @@ public class XEditLayout extends ConstraintLayout implements TextWatcher, View.O
 
         // 1. 重新设置左边Icon宽度
         if (mLeftWidth > 0) {
-            resetView(mIvLeftIcon, mLeftWidth);
+            setViewWidth(mIvLeftIcon, mLeftWidth);
+        }
+        if (mLeftHeight > 0) {
+            setViewHeight(mIvLeftIcon, mLeftHeight);
         }
         if (mLeftIcon != 0) {
             mIvLeftIcon.setImageResource(mLeftIcon);
         }
         // 2. 重新设置清除Icon宽度
         mIvRightClearIcon.setImageResource(mRightClearIcon);
-        resetView(mIvRightClearIcon, mRightClearWidth);
+        if (mRightClearWidth > 0) {
+            setViewWidth(mIvRightClearIcon, mRightClearWidth);
+        }
+        if (mRightClearHeight > 0) {
+            setViewHeight(mIvRightClearIcon, mRightClearHeight);
+        }
+
+
         // 3. 重新设置右边第一个Icon宽度
         if (mRightWidth > 0) {
-            resetView(mIvRightIcon, mRightWidth);
+            setViewWidth(mIvRightIcon, mRightWidth);
+        }
+        if (mRightHeight > 0) {
+            setViewHeight(mIvRightIcon, mRightHeight);
         }
         if (mRightIcon != 0) {
             mIvRightIcon.setImageResource(mRightIcon);
         }
         // 4. 重新设置右边第二个Icon宽度
         if (mRightTwoWidth > 0) {
-            resetView(mIvRightTwoIcon, mRightTwoWidth);
+            setViewWidth(mIvRightTwoIcon, mRightTwoWidth);
+        }
+        if (mRightTwoWidth > 0 || mRightTwoHeight > 0) {
+            setViewHeight(mIvRightTwoIcon, mRightTwoHeight);
         }
         if (mRightTwoIcon != 0) {
             mIvRightTwoIcon.setImageResource(mRightTwoIcon);
@@ -264,12 +284,17 @@ public class XEditLayout extends ConstraintLayout implements TextWatcher, View.O
         }
     }
 
-    private void resetView(View view, int width) {
+    private void setViewWidth(View view, int width) {
         ViewGroup.LayoutParams params = view.getLayoutParams();
         params.width = width;
         view.setLayoutParams(params);
     }
 
+    private void setViewHeight(View view, int height) {
+        ViewGroup.LayoutParams params = view.getLayoutParams();
+        params.height = height;
+        view.setLayoutParams(params);
+    }
 
     private int dip2px(int dip) {
         return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, getResources().getDisplayMetrics()) + 0.5);
@@ -356,6 +381,10 @@ public class XEditLayout extends ConstraintLayout implements TextWatcher, View.O
      */
     public final void setOnRightTwoClick(View.OnClickListener listener) {
         mIvRightTwoIcon.setOnClickListener(listener);
+    }
+
+    public ImageView getIvLeftIcon() {
+        return mIvLeftIcon;
     }
 
     public ImageView getRightIcon() {

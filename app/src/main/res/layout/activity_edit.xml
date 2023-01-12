@@ -13,29 +13,31 @@
         android:layout_marginTop="30dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="10dp"
-        app:edit_left_text="文本"
-        app:edit_text_left_margin="8dp"
-        app:edit_text_right_margin="8dp"
+        app:editInputType="textPassword"
         app:editText="@string/app_name"
         app:edit_color="@color/colorPrimary"
         app:edit_left_icon="@mipmap/ic_launcher"
-        app:edit_left_width="35dp"
+        app:edit_left_text="文本"
         app:edit_line_visible="true"
-        app:edit_right_clear_width="35dp"
+        app:edit_right_clear_height="30dp"
+        app:edit_right_clear_width="30dp"
+        app:edit_right_height="25dp"
         app:edit_right_icon="@mipmap/ic_launcher"
+        app:edit_right_two_height="40dp"
         app:edit_right_two_icon="@mipmap/ic_launcher"
-        app:edit_right_two_width="60dp"
-        app:edit_right_width="35dp"
-        app:editInputType="textPassword"
-        app:edit_size="18dp" />
+        app:edit_right_two_width="40dp"
+        app:edit_right_width="25dp"
+        app:edit_size="18dp"
+        app:edit_text_left_margin="8dp"
+        app:edit_text_right_margin="8dp" />
 
     <cn.carhouse.views.XEditLayout
         android:id="@+id/xet2"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        app:edit_hint="@string/app_name"
-        app:editText="1234aaaa"
         app:editPassInputType="true"
+        app:editText="1234aaaa"
+        app:edit_hint="@string/app_name"
         app:edit_line_visible="true" />
 
     <cn.carhouse.views.XEditLayout
