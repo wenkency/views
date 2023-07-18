@@ -175,13 +175,17 @@ class XTabContainer extends FrameLayout {
         if (child == null) {
             return;
         }
-        int measuredWidth = getItemWidth(position);
-        // 与条目一样宽
-        if (mTabCount == 0 && mLineEqual) {
-            mLineLayoutParams.width = measuredWidth
-                    - child.getPaddingLeft()
-                    - child.getPaddingRight();
-        }
+        child.post(() -> {
+            int measuredWidth = getItemWidth(position);
+            // 与条目一样宽
+            if (mTabCount == 0 && mLineEqual) {
+                mLineLayoutParams.width = measuredWidth
+                        - child.getPaddingLeft()
+                        - child.getPaddingRight();
+                mLineView.setLayoutParams(mLineLayoutParams);
+            }
+        });
+
 
     }
 
@@ -196,15 +200,13 @@ class XTabContainer extends FrameLayout {
         if (child == null) {
             return;
         }
-        int measuredWidth = getItemWidth(position);
 
-        int leftMargin = child.getLeft() + offset + child.getPaddingLeft();
+        child.post(()->{
+            int leftMargin = child.getLeft() + offset + child.getPaddingLeft();
+            mLineLayoutParams.leftMargin = leftMargin;
+            mLineView.setLayoutParams(mLineLayoutParams);
+        });
 
-
-        mLineLayoutParams.leftMargin = leftMargin;
-
-
-        mLineView.setLayoutParams(mLineLayoutParams);
     }
 
     public int getItemWidth(int position) {

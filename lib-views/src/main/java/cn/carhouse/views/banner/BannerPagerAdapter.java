@@ -14,9 +14,6 @@ public abstract class BannerPagerAdapter<T> extends XQuickPagerAdapter<T> {
         super(data, layoutId, isLopper);
     }
 
-    public BannerPagerAdapter(List<T> data, int layoutId, boolean isLopper, boolean isCache) {
-        super(data, layoutId, isLopper, isCache);
-    }
 
     public BannerPagerAdapter(List<T> data, int layoutId) {
         super(data, layoutId);

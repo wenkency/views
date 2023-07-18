@@ -5,9 +5,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.printservice.PrintService;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -45,6 +47,7 @@ public class XTabActivity extends AppCompatActivity {
             @Override
             protected void convert(XQuickViewHolder holder, String data, int position) {
                 holder.setText(R.id.tv, "ViewPager " + data + position);
+
             }
         });
 
@@ -65,25 +68,30 @@ public class XTabActivity extends AppCompatActivity {
             @Override
             public void convertTabReset(XViewHolder holder, String item, int position) {
                 holder.setBold(R.id.tv, false);
+                TextView tv=holder.getView(R.id.tv);
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP,16f);
             }
 
             @Override
             public void convertTabSelected(XViewHolder holder, String item, int position) {
                 holder.setBold(R.id.tv, true);
+                TextView tv=holder.getView(R.id.tv);
+                tv.setTextSize(TypedValue.COMPLEX_UNIT_DIP,20f);
             }
 
             @Override
             public View getTabBottomLineView(ViewGroup parent) {
 
-                // 这里可以创建自已的View
+                /*// 这里可以创建自已的View
                 ImageView view = new ImageView(parent.getContext());
                 // 这里可以设置自己的宽高：动态宽高（适配屏幕的）
                 view.setLayoutParams(new ViewGroup.LayoutParams(80, 80));
                 // 设置图片
-                view.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
+                view.setImageBitmap(BitmapFactory.decodeResource(getResources(),
+                        R.mipmap.ic_launcher));*/
 
-               /* View view = new View(parent.getContext());
-                view.setBackgroundColor(Color.parseColor("#ff0000"));*/
+                View view = new View(parent.getContext());
+                view.setBackgroundColor(Color.parseColor("#ff0000"));
 
                 return view;
             }

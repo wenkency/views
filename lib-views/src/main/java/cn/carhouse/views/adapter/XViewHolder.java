@@ -10,6 +10,8 @@ import android.widget.Checkable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.load.model.GlideUrl;
+
 import java.lang.ref.WeakReference;
 
 import cn.carhouse.imageloader.ImageLoaderFactory;
@@ -273,18 +275,18 @@ public class XViewHolder {
     /**
      * 根据URL加载图片
      */
-    public XViewHolder displayImage(int viewId, String url, int width, int height) {
+    public XViewHolder displayImage(int viewId, GlideUrl url) {
         View imageView = getView(viewId);
-        ImageLoaderFactory.getInstance().displayImage(imageView, url, width, height);
+        ImageLoaderFactory.getInstance().displayImage(imageView, url);
         return this;
     }
 
     /**
      * 根据URL加载图片
      */
-    public XViewHolder displayImage(int viewId, String url, int errorResId, int width, int height) {
+    public XViewHolder displayImage(int viewId, GlideUrl url, int errorResId) {
         View imageView = getView(viewId);
-        ImageLoaderFactory.getInstance().displayImage(imageView, url, errorResId, width, height);
+        ImageLoaderFactory.getInstance().displayImage(imageView, url, errorResId);
         return this;
     }
 
@@ -292,7 +294,7 @@ public class XViewHolder {
      * 根据URL加载图片
      */
     public XViewHolder displayImage(int viewId, String url, int errorResId) {
-        ImageView imageView = getView(viewId);
+        View imageView = getView(viewId);
         ImageLoaderFactory.getInstance().displayImage(imageView, url, errorResId);
         return this;
     }
@@ -301,7 +303,7 @@ public class XViewHolder {
      * 根据URL加载图片
      */
     public XViewHolder displayImage(int viewId, String url) {
-        ImageView imageView = getView(viewId);
+        View imageView = getView(viewId);
         ImageLoaderFactory.getInstance().displayImage(imageView, url);
         return this;
     }
@@ -310,7 +312,7 @@ public class XViewHolder {
      * 根据本地资源ID加载图片
      */
     public XViewHolder displayImage(int viewId, int resId) {
-        ImageView imageView = getView(viewId);
+        View imageView = getView(viewId);
         ImageLoaderFactory.getInstance().displayImage(imageView, resId);
         return this;
     }
@@ -319,7 +321,7 @@ public class XViewHolder {
      * 根据URL加载圆形图片
      */
     public XViewHolder displayCircleImage(int viewId, String url, int errorResId) {
-        ImageView imageView = getView(viewId);
+        View imageView = getView(viewId);
         ImageLoaderFactory.getInstance().displayCircleImage(imageView, url, errorResId);
         return this;
     }
@@ -328,7 +330,7 @@ public class XViewHolder {
      * 根据URL加载圆角图片
      */
     public XViewHolder displayRadiusImage(int viewId, String url, int radius, int errorResId) {
-        ImageView imageView = getView(viewId);
+        View imageView = getView(viewId);
         ImageLoaderFactory.getInstance().displayRadiusImage(imageView, url, radius, errorResId);
         return this;
     }
