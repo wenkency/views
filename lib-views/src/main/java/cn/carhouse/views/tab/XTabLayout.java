@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.database.DataSetObserver;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.HorizontalScrollView;
 
@@ -286,13 +287,15 @@ public class XTabLayout extends HorizontalScrollView implements ViewPager.OnPage
                 + mTabContainer.getItemWidth(position) / 2f - getWidth() / 2f;
         smoothScrollTo((int) finalScroll, 0);
     }
-
+    private int dip2px(int dip) {
+        return (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dip, getResources().getDisplayMetrics()) + 0.5);
+    }
     public void setTabCount(int tabCount) {
         mTabContainer.setTabCount(tabCount);
     }
 
     public void setItemWidth(int itemWidth) {
-        mTabContainer.setItemWidth(itemWidth);
+        mTabContainer.setItemWidth(dip2px(itemWidth));
     }
 
     public void setTabEqual(boolean tabEqual) {
@@ -304,15 +307,15 @@ public class XTabLayout extends HorizontalScrollView implements ViewPager.OnPage
     }
 
     public void setLineWidth(int lineWidth) {
-        mTabContainer.setLineWidth(lineWidth);
+        mTabContainer.setLineWidth(dip2px(lineWidth));
     }
 
     public void setLineHeight(int lineHeight) {
-        mTabContainer.setLineHeight(lineHeight);
+        mTabContainer.setLineHeight(dip2px(lineHeight));
     }
 
     public void setTabLineBottomMargin(int tabLineBottomMargin) {
-        mTabContainer.setTabLineBottomMargin(tabLineBottomMargin);
+        mTabContainer.setTabLineBottomMargin(dip2px(tabLineBottomMargin));
     }
 
     public interface OnItemClickListener {

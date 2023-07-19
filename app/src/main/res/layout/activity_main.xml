@@ -13,7 +13,9 @@
         android:layout_height="80dp"
         android:layout_gravity="center_horizontal"
         android:background="#45124545"
-        app:lineEqual="true"
+        app:lineEqual="false"
+        app:tabLineWidth="20dp"
+        app:tabLineHeight="2dp"
         app:tabIsScroll="true" />
 
     <androidx.viewpager.widget.ViewPager

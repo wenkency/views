@@ -3,9 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/iv_icon"
-        android:scaleType="centerCrop"
+    <cn.carhouse.views.marquee.MarqueeRecyclerView
+        android:id="@+id/marquee"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"/>
 </FrameLayout>

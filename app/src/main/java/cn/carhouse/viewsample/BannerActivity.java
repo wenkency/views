@@ -12,6 +12,7 @@ import java.util.List;
 import cn.carhouse.adapter.XQuickViewHolder;
 import cn.carhouse.views.banner.BannerPagerAdapter;
 import cn.carhouse.views.banner.BannerView;
+import cn.carhouse.views.transformer.ScaleInTransformer;
 
 public class BannerActivity extends AppCompatActivity {
     // 轮播图片
@@ -31,9 +32,12 @@ public class BannerActivity extends AppCompatActivity {
             @Override
             protected void convert(XQuickViewHolder holder, String imageUrl, int position) {
                 //View view = holder.getView(R.id.iv_icon);
-                holder.displayImage(R.id.iv_icon, imageUrl);
+                holder.displayRadiusImage(R.id.iv_icon, imageUrl,20);
             }
         };
+        mBannerView.setPageTransformer(true,new ScaleInTransformer(0.9f));
+        mBannerView.setViewPagerMargin(15);
+        mBannerView.setPageMargin(8);
         mBannerView.setAdapter(adapter);
     }
 }

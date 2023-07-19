@@ -36,6 +36,7 @@ public class TestActivity extends AppCompatActivity {
         data = new ArrayList<>();
         data.add(BannerActivity.class);
         data.add(XTabActivity.class);
+        data.add(MarqueeActivity.class);
         data.add(FlowActivity.class);
         data.add(StickActivity.class);
         data.add(TextActivity.class);

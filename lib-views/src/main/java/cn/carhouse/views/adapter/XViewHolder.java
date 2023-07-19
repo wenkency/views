@@ -316,7 +316,11 @@ public class XViewHolder {
         ImageLoaderFactory.getInstance().displayImage(imageView, resId);
         return this;
     }
-
+    public XViewHolder displayCircleImage(int viewId, String url){
+        View imageView = getView(viewId);
+        ImageLoaderFactory.getInstance().displayCircleImage(imageView, url);
+        return this;
+    }
     /**
      * 根据URL加载圆形图片
      */

@@ -1,6 +1,5 @@
 package cn.carhouse.views.banner;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Build;
 import android.util.AttributeSet;
@@ -12,8 +11,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.lang.reflect.Field;
 
-import cn.carhouse.views.adapter.XCallbacks;
-
 
 /**
  * 轮播图的ViewPager
@@ -21,15 +18,10 @@ import cn.carhouse.views.adapter.XCallbacks;
 
 public class BannerViewPager extends ViewPager implements View.OnTouchListener {
     private BannerPagerAdapter mAdapter;
-    private long mRollTime = 5000;// 轮播的时间
-    private Activity mActivity;// 当前View的Activity
+    private long mRollTime = 3500;// 轮播的时间
     private boolean isLoop = true;
     private BannerScroller mBannerScroller;
     private int downX;
-    /**
-     * Activity的生命周期监听回调
-     */
-    private XCallbacks mCallbacks;
     private Runnable mTask = null;
 
     public BannerViewPager(Context context) {
@@ -47,9 +39,7 @@ public class BannerViewPager extends ViewPager implements View.OnTouchListener {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (context instanceof Activity) {
-            mActivity = (Activity) context;
-        }
+
         mTask = new Runnable() {
             @Override
             public void run() {
@@ -80,73 +70,6 @@ public class BannerViewPager extends ViewPager implements View.OnTouchListener {
         mAdapter = adapter;
         // 调用父类的
         super.setAdapter(adapter);
-    }
-
-    /**
-     * 注册Activity的生命周期监听
-     */
-    private void addActivityCallBack() {
-        if (mActivity != null) {
-            if (mCallbacks == null) {
-                mCallbacks = new XCallbacks() {
-                    @Override
-                    public void onActivityResumed(Activity activity) {
-                        if (activity == mActivity) {
-                            startRoll();
-                        }
-                    }
-
-                    @Override
-                    public void onActivityPaused(Activity activity) {
-                        if (activity == mActivity) {
-                            stopRoll();
-                        }
-
-                    }
-
-                    @Override
-                    public void onActivityDestroyed(Activity activity) {
-                        if (activity == mActivity) {
-                            removeActivityCallback();
-                            mActivity = null;
-                            mCallbacks = null;
-                        }
-                    }
-                };
-            }
-            mActivity.getApplication().registerActivityLifecycleCallbacks(mCallbacks);
-        }
-    }
-
-    /**
-     * 移除Activity的生命周期监听
-     */
-    private void removeActivityCallback() {
-        try {
-            stopRoll();
-            // 移除Activity的生命周期监听
-            if (mActivity != null) {
-                mActivity.getApplication().unregisterActivityLifecycleCallbacks(mCallbacks);
-            }
-        } catch (Throwable e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        // 注册Activity的生命周期监听
-        addActivityCallBack();
-    }
-
-    /**
-     * 销毁Handler
-     */
-    @Override
-    protected void onDetachedFromWindow() {
-        removeActivityCallback();
-        super.onDetachedFromWindow();
     }
 
     /**

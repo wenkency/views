@@ -10,7 +10,7 @@ import android.widget.Scroller;
 
 public class BannerScroller extends Scroller {
 
-    private int mDuration = 300;
+    private int mDuration = 350;
 
     public BannerScroller(Context context) {
         super(context);

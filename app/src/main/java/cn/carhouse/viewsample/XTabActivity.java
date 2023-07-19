@@ -62,7 +62,12 @@ public class XTabActivity extends AppCompatActivity {
                 if (position % 3 == 2) {
                     url = "https://img4.orsoon.com:8901/pic/201912/09110428_45fbbfb018.png";
                 }
-                holder.displayImage(R.id.iv_icon, url);
+                if (position % 3 == 1){
+                    holder.displayCircleImage(R.id.iv_icon, url);
+                }else {
+                    holder.displayImage(R.id.iv_icon, url);
+                }
+
             }
 
             @Override
@@ -97,7 +102,7 @@ public class XTabActivity extends AppCompatActivity {
             }
         };
         // 设置底部线宽高和距离底部高度
-        tabLayout.setTabLineBottomMargin(5);
+        tabLayout.setTabLineBottomMargin(4);
         // 设置一屏显示5个
         // 设置点击回调
         tabLayout.setOnItemClickListener(new XTabLayout.OnItemClickListener() {

@@ -201,8 +201,11 @@ class XTabContainer extends FrameLayout {
             return;
         }
 
-        child.post(()->{
+        child.post(() -> {
             int leftMargin = child.getLeft() + offset + child.getPaddingLeft();
+            if (mLineWidth > 0 && !mLineEqual) {
+                leftMargin = child.getLeft() + offset + child.getMeasuredWidth() / 2 - mLineWidth / 2;
+            }
             mLineLayoutParams.leftMargin = leftMargin;
             mLineView.setLayoutParams(mLineLayoutParams);
         });

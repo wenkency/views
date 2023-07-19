@@ -8,10 +8,12 @@ import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import androidx.annotation.Nullable;
 import androidx.viewpager.widget.ViewPager;
 
 import cn.carhouse.views.R;
@@ -46,6 +48,8 @@ public class BannerView<T> extends RelativeLayout {
     private float mRadius;// 点的圆角
     private int mPosition = -1;
     private int mPointWidth, mPointHeight;// 点的宽高
+    // ViewPager margin
+    private int mLeftMargin, mRightMargin, mTopMargin, mBottomMargin;
     private int mPointSelectedWidth, mPointSelectedHeight;// 选中点的宽高
     private int mPointDistance;// 点的间距
     private int mPointBottomDistance;// 点底部间距
@@ -85,6 +89,11 @@ public class BannerView<T> extends RelativeLayout {
 
     private void obtainStyledAttributes(Context context, AttributeSet attrs) {
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.BannerView);
+        // margin
+        mLeftMargin = (int) array.getDimension(R.styleable.BannerView_pager_left_margin, 0);
+        mRightMargin = (int) array.getDimension(R.styleable.BannerView_pager_right_margin, 0);
+        mTopMargin = (int) array.getDimension(R.styleable.BannerView_pager_top_margin, 0);
+        mBottomMargin = (int) array.getDimension(R.styleable.BannerView_pager_bottom_margin, 0);
         // 点的宽高
         mPointWidth = (int) array.getDimension(R.styleable.BannerView_point_width, dip2px(5));
         mPointHeight = (int) array.getDimension(R.styleable.BannerView_point_height, dip2px(5));
@@ -120,6 +129,42 @@ public class BannerView<T> extends RelativeLayout {
         mBannerPoints.setGravity(getPointGravity());
         // 点距离底部距离
         setBottomDistance(mPointBottomDistance);
+        setMargin();
+    }
+
+    private void setMargin() {
+        ViewGroup.LayoutParams layoutParams = mBannerPager.getLayoutParams();
+        if (layoutParams instanceof FrameLayout.LayoutParams) {
+            FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) layoutParams;
+            params.leftMargin = mLeftMargin;
+            params.rightMargin = mRightMargin;
+            params.topMargin = mTopMargin;
+            params.bottomMargin = mBottomMargin;
+            mBannerPager.setLayoutParams(params);
+        }
+    }
+    public void setLeftMargin(int leftMargin){
+        this.mLeftMargin=dip2px(leftMargin);
+        setMargin();
+    }
+    public void setRightMargin(int rightMargin){
+        this.mRightMargin=dip2px(rightMargin);
+        setMargin();
+    }
+    public void setTopMargin(int topMargin){
+        this.mTopMargin=dip2px(topMargin);
+        setMargin();
+    }
+    public void setBottomMargin(int bottomMargin){
+        this.mBottomMargin=dip2px(bottomMargin);
+        setMargin();
+    }
+    public void setViewPagerMargin(int margin){
+        this.mLeftMargin=dip2px(margin);
+        this.mRightMargin=dip2px(margin);
+        this.mTopMargin=dip2px(margin);
+        this.mBottomMargin=dip2px(margin);
+        setMargin();
     }
 
     /**
@@ -368,6 +413,25 @@ public class BannerView<T> extends RelativeLayout {
         }
     }
 
+    public void setPageMargin(int margin) {
+        if (mBannerPager != null) {
+            mBannerPager.setPageMargin(dip2px(margin));
+        }
+    }
+
+    public void setOffscreenPageLimit(int limit) {
+        if (mBannerPager != null) {
+            mBannerPager.setOffscreenPageLimit(limit);
+        }
+    }
+
+    public void setPageTransformer(boolean reverseDrawingOrder,
+                                   @Nullable ViewPager.PageTransformer transformer) {
+        if (mBannerPager != null) {
+            mBannerPager.setPageTransformer(reverseDrawingOrder, transformer);
+        }
+    }
+
 
     public interface OnPageSelectedListener {
         void onPageSelected(int position);
@@ -396,4 +460,9 @@ public class BannerView<T> extends RelativeLayout {
         isShowPoint = showPoint;
     }
 
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        stopRoll();
+    }
 }

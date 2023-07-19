@@ -4,10 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipChildren="false"
     android:orientation="vertical"
     tools:context=".XTabActivity">
 
     <cn.carhouse.views.banner.BannerView
+        android:clipChildren="false"
         android:id="@+id/banner_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -21,6 +23,8 @@
         app:point_radius="5dp"
         app:point_select_height="5dp"
         app:point_select_width="15dp"
+        app:pager_left_margin="30dp"
+        app:pager_right_margin="30dp"
         app:point_width="4dp" />
 
 
